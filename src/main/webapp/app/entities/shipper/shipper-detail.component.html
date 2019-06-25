@@ -1,0 +1,39 @@
+<div class="row justify-content-center">
+    <div class="col-10">
+        <div *ngIf="shipper">
+            <h2><span jhiTranslate="learnSqlApp.shipper.detail.title">Shipper</span> {{shipper.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <div class="row">
+                    <div class="col-5">
+                        <div class="md-form">
+                            <input disabled mdbInput placeholder="{{shipper.shipperName}}" type="text" class="form-control">
+                            <label jhiTranslate="learnSqlApp.shipper.shipperName">Shipper Name</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-5">
+                        <div class="md-form">
+                            <input disabled mdbInput placeholder="{{shipper.phone}}" type="text" class="form-control">
+                            <label jhiTranslate="learnSqlApp.shipper.phone">Phone</label>
+                        </div>
+                    </div>
+                </div>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/shipper', shipper.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

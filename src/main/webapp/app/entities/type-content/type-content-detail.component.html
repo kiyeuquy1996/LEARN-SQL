@@ -1,0 +1,68 @@
+<div class="row justify-content-center">
+    <div class="col-10">
+        <div *ngIf="typeContent">
+            <h2><span jhiTranslate="learnSqlApp.typeContent.detail.title">Type Content</span> {{typeContent.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+
+                <div class="row">
+                    <div class="col-5">
+                        <div class="md-form">
+                            <input disabled mdbInput placeholder="{{typeContent.nameTypeContent}}" type="text" class="form-control">
+                            <label jhiTranslate="learnSqlApp.typeContent.nameTypeContent">Name Type Content</label>
+                        </div>
+                    </div>
+                    <div class="col-5">
+                        <div class="md-form">
+                            <input disabled mdbInput placeholder="{{typeContent.priority}}" type="text" class="form-control">
+                            <label jhiTranslate="learnSqlApp.typeContent.priority">Priority</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-5">
+                        <div class="md-form">
+                            <input disabled mdbInput placeholder="{{typeContent.createdDate}}" type="text" class="form-control">
+                            <label jhiTranslate="learnSqlApp.typeContent.createdDate">Created Date</label>
+                        </div>
+                    </div>
+                    <div class="col-5">
+                        <div class="md-form">
+                            <input disabled mdbInput placeholder="{{typeContent.createdBy}}" type="number" class="form-control">
+                            <label jhiTranslate="learnSqlApp.typeContent.createdBy">Created By</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-5">
+                        <div class="md-form">
+                            <input disabled mdbInput placeholder="{{typeContent.updatedDate}}" type="text" class="form-control">
+                            <label jhiTranslate="learnSqlApp.typeContent.updatedDate">Updated Date</label>
+                        </div>
+                    </div>
+                    <div class="col-5">
+                        <div class="md-form">
+                            <input disabled mdbInput placeholder="{{typeContent.updatedBy}}" type="number" class="form-control">
+                            <label jhiTranslate="learnSqlApp.typeContent.updatedBy">Updated By</label>
+                        </div>
+                    </div>
+                </div>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/type-content', typeContent.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

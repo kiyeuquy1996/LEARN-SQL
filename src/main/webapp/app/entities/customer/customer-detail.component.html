@@ -1,0 +1,67 @@
+<div class="row justify-content-center">
+    <div class="col-10">
+        <div *ngIf="customer">
+            <h2><span jhiTranslate="learnSqlApp.customer.detail.title">Customer</span> {{customer.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <div class="row">
+                    <div class="col-5">
+                        <div class="md-form">
+                            <input disabled mdbInput placeholder="{{customer.customerName}}" type="text" class="form-control">
+                            <label jhiTranslate="learnSqlApp.customer.customerName">Customer Name</label>
+                        </div>
+                    </div>
+                    <div class="col-5">
+                        <div class="md-form">
+                            <input disabled mdbInput placeholder="{{customer.contactName}}" type="text" class="form-control">
+                            <label jhiTranslate="learnSqlApp.customer.contactName">Contact Name</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-5">
+                        <div class="md-form">
+                            <input disabled mdbInput placeholder="{{customer.address}}" type="text" class="form-control">
+                            <label jhiTranslate="learnSqlApp.customer.address">Address</label>
+                        </div>
+                    </div>
+                    <div class="col-5">
+                        <div class="md-form">
+                            <input disabled mdbInput placeholder="{{customer.city}}" type="text" class="form-control">
+                            <label jhiTranslate="learnSqlApp.customer.city">City</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-5">
+                        <div class="md-form">
+                            <input disabled mdbInput placeholder="{{customer.postalCode}}" type="text" class="form-control">
+                            <label jhiTranslate="learnSqlApp.customer.postalCode">Postal Code</label>
+                        </div>
+                    </div>
+                    <div class="col-5">
+                        <div class="md-form">
+                            <input disabled mdbInput placeholder="{{customer.country}}" type="text" class="form-control">
+                            <label jhiTranslate="learnSqlApp.customer.country">Country</label>
+                        </div>
+                    </div>
+                </div>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/customer', customer.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

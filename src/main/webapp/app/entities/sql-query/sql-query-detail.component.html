@@ -1,0 +1,83 @@
+<div class="row justify-content-center">
+    <div class="col-10">
+        <div *ngIf="sQLQuery">
+            <h2><span jhiTranslate="learnSqlApp.sQLQuery.detail.title">SQL Query</span> {{sQLQuery.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+
+                <div class="row">
+                    <div class="col-5">
+                        <div class="md-form">
+                            <input disabled mdbInput placeholder="{{sQLQuery.title}}" type="text" class="form-control">
+                            <label jhiTranslate="learnSqlApp.sQLQuery.title">Title</label>
+                        </div>
+                    </div>
+                    <div class="col-5">
+                        <div class="md-form">
+                            <input disabled mdbInput placeholder="{{sQLQuery.nameUrl}}" type="text" class="form-control">
+                            <label jhiTranslate="learnSqlApp.sQLQuery.nameUrl">Name Url</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-5">
+                        <div class="md-form">
+                            <input disabled mdbInput placeholder="{{sQLQuery.query}}" type="text" class="form-control">
+                            <label jhiTranslate="learnSqlApp.sQLQuery.query">Query</label>
+                        </div>
+                    </div>
+                    <div class="col-5">
+                        <div class="md-form">
+                            <input disabled mdbInput placeholder="{{sQLQuery.description}}" type="text" class="form-control">
+                            <label jhiTranslate="learnSqlApp.sQLQuery.description">Description</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-5">
+                        <div class="md-form">
+                            <input disabled mdbInput placeholder="{{sQLQuery.createdDate}}" type="text" class="form-control">
+                            <label jhiTranslate="learnSqlApp.sQLQuery.createdDate">Created Date</label>
+                        </div>
+                    </div>
+                    <div class="col-5">
+                        <div class="md-form">
+                            <input disabled mdbInput placeholder="{{sQLQuery.createdBy}}" type="number" class="form-control">
+                            <label jhiTranslate="learnSqlApp.sQLQuery.createdBy">Created By</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-5">
+                        <div class="md-form">
+                            <input disabled mdbInput placeholder="{{sQLQuery.updatedDate}}" type="text" class="form-control">
+                            <label jhiTranslate="learnSqlApp.sQLQuery.updatedDate">Updated Date</label>
+                        </div>
+                    </div>
+                    <div class="col-5">
+                        <div class="md-form">
+                            <input disabled mdbInput placeholder="{{sQLQuery.updatedBy}}" type="number" class="form-control">
+                            <label jhiTranslate="learnSqlApp.sQLQuery.updatedBy">Updated By</label>
+                        </div>
+                    </div>
+                </div>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/sql-query', sQLQuery.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

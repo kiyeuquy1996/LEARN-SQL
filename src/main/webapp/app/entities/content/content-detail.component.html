@@ -1,0 +1,86 @@
+<div class="row justify-content-center">
+    <div class="col-10">
+        <div *ngIf="content">
+            <h2><span jhiTranslate="learnSqlApp.content.detail.title">Content</span> {{content.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+
+                <div class="md-form">
+                    <input disabled mdbInput placeholder="{{content.title}}" type="text" class="form-control">
+                    <label jhiTranslate="learnSqlApp.content.title">Title</label>
+                </div>
+
+                <div class="md-form">
+                    <textarea disabled mdbInput placeholder="{{content.content}}" type="text" class="md-textarea form-control"></textarea>
+                    <label jhiTranslate="learnSqlApp.content.content">Content</label>
+                </div>
+
+                <div class="row">
+                    <div class="col-5">
+                        <div class="md-form">
+                            <dt><span jhiTranslate="learnSqlApp.content.category">Category</span></dt>
+                            <dd>
+                                <div *ngIf="content.categoryId">
+                                    <a [routerLink]="['/category', content.categoryId, 'view']">{{content.categoryId}}</a>
+                                </div>
+                            </dd>
+                        </div>
+                    </div>
+                    <div class="col-5">
+                        <div class="md-form">
+                            <dt><span jhiTranslate="learnSqlApp.content.typeContent">Type Content</span></dt>
+                            <dd>
+                                <div *ngIf="content.typeContentId">
+                                    <a [routerLink]="['/type-content', content.typeContentId, 'view']">{{content.typeContentId}}</a>
+                                </div>
+                            </dd>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-5">
+                        <div class="md-form">
+                            <input disabled mdbInput placeholder="{{content.createdDate}}" type="text" class="form-control">
+                            <label jhiTranslate="learnSqlApp.content.createdDate">Created Date</label>
+                        </div>
+                    </div>
+                    <div class="col-5">
+                        <div class="md-form">
+                            <input disabled mdbInput placeholder="{{content.createdBy}}" type="number" class="form-control">
+                            <label jhiTranslate="learnSqlApp.content.createdBy">Created By</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-5">
+                        <div class="md-form">
+                            <input disabled mdbInput placeholder="{{content.updatedDate}}" type="text" class="form-control">
+                            <label jhiTranslate="learnSqlApp.content.updatedDate">Updated Date</label>
+                        </div>
+                    </div>
+                    <div class="col-5">
+                        <div class="md-form">
+                            <input disabled mdbInput placeholder="{{content.updatedBy}}" type="number" class="form-control">
+                            <label jhiTranslate="learnSqlApp.content.updatedBy">Updated By</label>
+                        </div>
+                    </div>
+                </div>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/content', content.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

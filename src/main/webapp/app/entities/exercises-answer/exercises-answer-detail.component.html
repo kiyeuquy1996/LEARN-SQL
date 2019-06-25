@@ -1,0 +1,78 @@
+<div class="row justify-content-center">
+    <div class="col-10">
+        <div *ngIf="exercisesAnswer">
+            <h2><span
+                jhiTranslate="learnSqlApp.exercisesAnswer.detail.title">Exercises Answer</span> {{exercisesAnswer.id}}
+            </h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+
+                <div class="row">
+                    <div class="col-5">
+                        <div class="md-form">
+                            <input disabled mdbInput placeholder="{{exercisesAnswer.result}}" type="text"
+                                   class="form-control">
+                            <label jhiTranslate="learnSqlApp.exercisesAnswer.result">Result</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-3" [ngStyle]="{'padding-left': '35px'}">
+                        <mdb-checkbox [disabled]="true" [checked]="exercisesAnswer.isCorrect">Is Correct</mdb-checkbox>
+                    </div>
+                    <div class="col-7">
+                        <dt><span jhiTranslate="learnSqlApp.exercisesAnswer.exercises">Exercises</span></dt>
+                        <dd>
+                            <div *ngIf="exercisesAnswer.exercisesId">
+                                <a [routerLink]="['/exercises', exercisesAnswer.exercisesId, 'view']">{{exercisesAnswer.exercisesId}}</a>
+                            </div>
+                        </dd>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-5">
+                        <div class="md-form">
+                            <input disabled mdbInput placeholder="{{exercisesAnswer.createdDate}}" type="text" class="form-control">
+                            <label jhiTranslate="learnSqlApp.exercisesAnswer.createdDate">Created Date</label>
+                        </div>
+                    </div>
+                    <div class="col-5">
+                        <div class="md-form">
+                            <input disabled mdbInput placeholder="{{exercisesAnswer.createdBy}}" type="number" class="form-control">
+                            <label jhiTranslate="learnSqlApp.exercisesAnswer.createdBy">Created By</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-5">
+                        <div class="md-form">
+                            <input disabled mdbInput placeholder="{{exercisesAnswer.updatedDate}}" type="text" class="form-control">
+                            <label jhiTranslate="learnSqlApp.exercisesAnswer.updatedDate">Updated Date</label>
+                        </div>
+                    </div>
+                    <div class="col-5">
+                        <div class="md-form">
+                            <input disabled mdbInput placeholder="{{exercisesAnswer.updatedBy}}" type="number" class="form-control">
+                            <label jhiTranslate="learnSqlApp.exercisesAnswer.updatedBy">Updated By</label>
+                        </div>
+                    </div>
+                </div>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/exercises-answer', exercisesAnswer.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
