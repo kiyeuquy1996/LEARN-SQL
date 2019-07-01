@@ -1,65 +1,37 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import {MdbTableDirective, MdbTablePaginationComponent} from 'angular-bootstrap-md';
 
 @Component({
-    selector: 'app-dashboard',
+    selector: 'jhi-dashboard',
     templateUrl: './dashboard.component.html',
     styleUrls: ['./dashboard.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, AfterViewInit {
 
-    public map: any = { lat: 51.678418, lng: 7.809007 };
-    public chart1Type:string = 'bar';
-    public chart2Type:string = 'pie';
-    public chart3Type:string = 'line';
-    public chart4Type:string = 'radar';
-    public chart5Type:string = 'doughnut';
+    @ViewChild(MdbTablePaginationComponent) mdbTablePagination: MdbTablePaginationComponent;
+    @ViewChild(MdbTableDirective) mdbTable: MdbTableDirective;
+    elements: any = [];
+    previous: any = [];
+    headElements = ['ID', 'First', 'Last', 'Handle'];
 
-
-    public chartType = 'line';
-
-    public chartDatasets: Array<any> = [
-        {data: [50, 40, 60, 51, 56, 55, 40], label: '#1'},
-        {data: [28, 80, 40, 69, 36, 37, 110], label: '#2'},
-        {data: [38, 58, 30, 90, 45, 65, 30], label: '#3'}
-    ];
-
-    public chartLabels: Array<any> = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'];
-
-    public chartColors:Array<any> = [
-
-    ];
-
-    public dateOptionsSelect: any[];
-    public bulkOptionsSelect: any[];
-    public showOnlyOptionsSelect: any[];
-    public filterOptionsSelect: any[];
-
-    public chartOptions: any = {
-        responsive: true,
-        legend: {
-            labels: {
-                fontColor: '#5b5f62',
-            }
-        },
-        scales: {
-            yAxes: [{
-                ticks: {
-                    fontColor: '#5b5f62',
-                }
-            }],
-            xAxes: [{
-                ticks: {
-                    fontColor: '#5b5f62',
-                }
-            }]
-        }
-    };
-
-    constructor() {
-
+    constructor(private cdRef: ChangeDetectorRef) {
     }
 
     ngOnInit() {
+        for (let i = 1; i <= 15; i++) {
+            this.elements.push({id: (i * 2).toString(), first: 'User ' + i, last: 'Name ' + i, handle: 'Handle ' + i});
+        }
+        console.log(this.elements);
+        this.mdbTable.setDataSource(this.elements);
+        this.elements = this.mdbTable.getDataSource();
+        this.previous = this.mdbTable.getDataSource();
     }
 
+    ngAfterViewInit() {
+        this.mdbTablePagination.setMaxVisibleItemsNumberTo(5);
+
+        this.mdbTablePagination.calculateFirstItemIndex();
+        this.mdbTablePagination.calculateLastItemIndex();
+        this.cdRef.detectChanges();
+    }
 }

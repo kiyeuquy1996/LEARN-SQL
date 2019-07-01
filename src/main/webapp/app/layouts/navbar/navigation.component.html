@@ -1,7 +1,7 @@
 <!--Main Navigation-->
 <header>
     <!-- Sidebar -->
-    <div class="sidebar-fixed position-fixed scrollbar scroll-sidebar scrollbar-rare-wind"
+    <div class="sidebar-fixed position-fixed scrollbar scroll-sidebar scrollbar-deep-blue"
          [ngSwitch]="isAuthenticated()">
 
         <a class="logo-wrapper waves-effect" *ngSwitchCase="true">
@@ -13,86 +13,134 @@
             <a routerLink="dashboard"
                routerLinkActive="active"
                class="list-group-item list-group-item-action waves-effect">
-                <mdb-icon fas icon="home"></mdb-icon>
-                <span>Dashboard</span>
+                <div class="row justify-content-md-center">
+                    <div class="col-md-auto">
+                        <mdb-icon fas icon="home"></mdb-icon>
+                    </div>
+                    <div class="col-9">
+                        <span>Dashboard</span>
+                    </div>
+                </div>
             </a>
 
             <a routerLink="category-type"
                routerLinkActive="active"
                class="list-group-item list-group-item-action waves-effect">
-                <mdb-icon fab icon="microsoft"></mdb-icon>
-                <span jhiTranslate="global.menu.entities.categoryType">Category Type</span>
+                <div class="row justify-content-md-center">
+                    <div class="col-md-auto">
+                        <mdb-icon far icon="calendar-alt"></mdb-icon>
+                    </div>
+                    <div class="col-9">
+                        <span jhiTranslate="global.menu.entities.categoryType">Category Type</span>
+                    </div>
+                </div>
             </a>
 
             <a routerLink="category"
                routerLinkActive="active"
                class="list-group-item list-group-item-action waves-effect">
-                <mdb-icon fas icon="align-left"></mdb-icon>
-                <span jhiTranslate="global.menu.entities.category">Category</span>
+                <div class="row justify-content-md-center">
+                    <div class="col-md-auto">
+                        <mdb-icon fas icon="network-wired"></mdb-icon>
+                    </div>
+                    <div class="col-9">
+                        <span jhiTranslate="global.menu.entities.category">Category</span>
+                    </div>
+                </div>
             </a>
 
             <a routerLink="content"
                routerLinkActive="active"
                class="list-group-item list-group-item-action waves-effect">
-                <i class="fas fa-code"></i>
-                <span jhiTranslate="global.menu.entities.content">Content</span>
+                <div class="row justify-content-md-center">
+                    <div class="col-md-auto">
+                        <mdb-icon fas icon="tv"></mdb-icon>
+                    </div>
+                    <div class="col-9">
+                        <span jhiTranslate="global.menu.entities.content">Content</span>
+                    </div>
+                </div>
             </a>
 
             <a routerLink="sql-query"
                routerLinkActive="active"
                class="list-group-item list-group-item-action waves-effect">
-                <i class="fas fa-code"></i>
-                <span jhiTranslate="global.menu.entities.sqlQuery">Sql Query</span>
+                <div class="row justify-content-md-center">
+                    <div class="col-md-auto">
+                        <mdb-icon fas icon="coins"></mdb-icon>
+                    </div>
+                    <div class="col-9">
+                        <span jhiTranslate="global.menu.entities.sqlQuery">Sql Query</span>
+                    </div>
+                </div>
             </a>
 
             <a routerLink="type-content"
                routerLinkActive="active"
                class="list-group-item list-group-item-action waves-effect">
-                <i class="fas fa-code"></i>
-                <span jhiTranslate="global.menu.entities.typeContent">Type Content</span>
+                <div class="row justify-content-md-center">
+                    <div class="col-md-auto">
+                        <mdb-icon fas icon="newspaper"></mdb-icon>
+                    </div>
+                    <div class="col-9">
+                        <span jhiTranslate="global.menu.entities.typeContent">Type Content</span>
+                    </div>
+                </div>
             </a>
 
             <a routerLink="exercises"
                routerLinkActive="active"
                class="list-group-item list-group-item-action waves-effect">
-                <i class="fas fa-code"></i>
-                <span jhiTranslate="global.menu.entities.exercises">Exercises</span>
+                <div class="row justify-content-md-center">
+                    <div class="col-md-auto">
+                        <mdb-icon far icon="edit"></mdb-icon>
+                    </div>
+                    <div class="col-9">
+                        <span jhiTranslate="global.menu.entities.exercises">Exercises</span>
+                    </div>
+                </div>
             </a>
 
             <a routerLink="exercises-answer"
                routerLinkActive="active"
                class="list-group-item list-group-item-action waves-effect">
-                <i class="fas fa-code"></i>
-                <span jhiTranslate="global.menu.entities.exercisesAnswer">Exercises Answer</span>
+                <div class="row justify-content-md-center">
+                    <div class="col-md-auto">
+                        <mdb-icon fas icon="font"></mdb-icon>
+                    </div>
+                    <div class="col-9">
+                        <span jhiTranslate="global.menu.entities.exercisesAnswer">Answer</span>
+                    </div>
+                </div>
             </a>
 
-            <a routerLink="orders"
-               routerLinkActive="active"
-               class="list-group-item list-group-item-action waves-effect">
-                <i class="fas fa-code"></i>
-                <span jhiTranslate="global.menu.entities.orders">Orders</span>
-            </a>
+<!--            <a routerLink="orders"-->
+<!--               routerLinkActive="active"-->
+<!--               class="list-group-item list-group-item-action waves-effect">-->
+<!--                <i class="fas fa-code"></i>-->
+<!--                <span jhiTranslate="global.menu.entities.orders">Orders</span>-->
+<!--            </a>-->
 
-            <a routerLink="customer"
-               routerLinkActive="active"
-               class="list-group-item list-group-item-action waves-effect">
-                <i class="fas fa-code"></i>
-                <span jhiTranslate="global.menu.entities.customer">Customer</span>
-            </a>
+<!--            <a routerLink="customer"-->
+<!--               routerLinkActive="active"-->
+<!--               class="list-group-item list-group-item-action waves-effect">-->
+<!--                <i class="fas fa-code"></i>-->
+<!--                <span jhiTranslate="global.menu.entities.customer">Customer</span>-->
+<!--            </a>-->
 
-            <a routerLink="employees"
-               routerLinkActive="active"
-               class="list-group-item list-group-item-action waves-effect">
-                <i class="fas fa-code"></i>
-                <span jhiTranslate="global.menu.entities.employees">Employees</span>
-            </a>
+<!--            <a routerLink="employees"-->
+<!--               routerLinkActive="active"-->
+<!--               class="list-group-item list-group-item-action waves-effect">-->
+<!--                <i class="fas fa-code"></i>-->
+<!--                <span jhiTranslate="global.menu.entities.employees">Employees</span>-->
+<!--            </a>-->
 
-            <a routerLink="shipper"
-               routerLinkActive="active"
-               class="list-group-item list-group-item-action waves-effect">
-                <i class="fas fa-code"></i>
-                <span jhiTranslate="global.menu.entities.shipper">Shipper</span>
-            </a>
+<!--            <a routerLink="shipper"-->
+<!--               routerLinkActive="active"-->
+<!--               class="list-group-item list-group-item-action waves-effect">-->
+<!--                <i class="fas fa-code"></i>-->
+<!--                <span jhiTranslate="global.menu.entities.shipper">Shipper</span>-->
+<!--            </a>-->
 
         </div>
 
@@ -168,8 +216,17 @@
             <!-- Links -->
             <ul class="navbar-nav ml-auto">
                 <!-- Home -->
-                <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                    <a class="nav-link waves-light text-info" mdbWavesEffect routerLink="/" (click)="collapseNavbar()">
+                <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" *ngSwitchCase="false">
+                    <a class="nav-link waves-light text-info" mdbWavesEffect (click)="collapseNavbar()">
+                    <span>
+                        <mdb-icon fas icon="home"></mdb-icon>
+                        <span jhiTranslate="global.menu.home">Home</span>
+                    </span>
+                    </a>
+                </li>
+
+                <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" *ngSwitchCase="true">
+                    <a class="nav-link waves-light text-info" mdbWavesEffect routerLink="dashboard" (click)="collapseNavbar()">
                     <span>
                         <mdb-icon fas icon="home"></mdb-icon>
                         <span jhiTranslate="global.menu.home">Home</span>

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ICustomer} from 'app/shared/model/customer.model';
 import {IEmployees} from 'app/shared/model/employees.model';
 import {IOrders} from 'app/shared/model/orders.model';
@@ -13,6 +13,7 @@ import {JhiAlertService} from 'ng-jhipster';
 import {TryItService} from 'app/layouts/try-it.service';
 import {SERVER_API_URL} from 'app/app.constants';
 import {ITryIt, TryIt} from 'app/shared/model/tryit.model';
+import {MDBModalRef} from "angular-bootstrap-md";
 
 @Component({
     selector: 'jhi-try-it',
@@ -34,10 +35,16 @@ export class TryitsComponent implements OnInit {
     query: string;
     nameArray: any[];
     data: any[];
+    reStoreData: any;
+    createTableName: any;
 
     tryIt: ITryIt;
 
+    @ViewChild('frame') dialog: MDBModalRef;
+
     public resourceUrl = SERVER_API_URL + 'api/try-it';
+    public resourceUrlRestore = SERVER_API_URL + 'api/restore';
+    public resourceUrlCreateTable = SERVER_API_URL + 'api/create-table';
 
     constructor(
         private tryitService: TryItService,
@@ -58,7 +65,32 @@ export class TryitsComponent implements OnInit {
     getQuerySQL(query?: any) {
         console.log(query);
 
+        let params0: string;
+        let params1: string;
+        let params2: string;
+        let nametable = query.split(' ', 3);
+
+        params0 = nametable[0];
+        params1 = nametable[1];
+        params2 = nametable[2];
+
         this.tryIt = new TryIt(query);
+
+        if (params0.toUpperCase() === 'CREATE' && params1.toUpperCase() === 'TABLE') {
+            if (params2.toUpperCase() === 'CUSTOMER' ||
+                params2.toUpperCase() === 'EMPLOYEES' ||
+                params2.toUpperCase() === 'ORDERS' ||
+                params2.toUpperCase() === 'SHIPPER') {
+                console.log('Duplicate name table');
+            } else {
+                this.http
+                    .post(this.resourceUrlCreateTable, this.tryIt, {observe: 'response'})
+                    .subscribe((res: any) => {
+                        this.createTableName = res;
+                        console.log(res);
+                    });
+            }
+        }
 
         this.http
             .post(this.resourceUrl, this.tryIt, {observe: 'response'})
@@ -78,6 +110,17 @@ export class TryitsComponent implements OnInit {
                 //     return x.length - y.length;
                 // });
                 // }
+            });
+    }
+
+    reStoreDB() {
+        this.http
+            .post(this.resourceUrlRestore, {observe: 'response'})
+            .subscribe((res: any) => {
+                this.reStoreData = res;
+                this.dialog.hide();
+                console.log(res);
+                console.log(this.reStoreData);
             });
     }
 

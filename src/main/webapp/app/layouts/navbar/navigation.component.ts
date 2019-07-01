@@ -246,7 +246,7 @@ export class NavigationComponent implements OnInit {
     logout() {
         this.collapseNavbar();
         this.loginService.logout();
-        this.router.navigate(['']);
+        this.router.navigate(['/view/SQL_Intro/1']);
     }
 
     toggleNavbar() {

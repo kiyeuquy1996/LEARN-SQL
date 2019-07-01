@@ -6,9 +6,10 @@ import {MDBBootstrapModule} from 'angular-bootstrap-md';
 import {TRYIT_ROUTE} from 'app/tryits/tryits.route';
 import {TryitsComponent} from 'app/tryits/tryits.component';
 import {KeysPipe} from 'app/layouts/safe-pipe';
+import {MatTabsModule} from '@angular/material';
 
 @NgModule({
-    imports: [LearnSqlSharedModule, RouterModule.forChild(TRYIT_ROUTE), MDBBootstrapModule.forRoot()],
+    imports: [LearnSqlSharedModule, RouterModule.forChild(TRYIT_ROUTE), MDBBootstrapModule.forRoot(), MatTabsModule],
     declarations: [TryitsComponent, KeysPipe],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

@@ -68,6 +68,7 @@
                 <p class="text-center font-weight-bold">Database</p>
             </div>
         </div>
+
         <div class="row">
             <div class="col-md-9">
                 <p>Tablename</p>
@@ -142,6 +143,38 @@
                 </div>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-center font-weight-bold">Your Database</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-9">
+                <hr>
+                <div class="row">
+                    <div class="col-md-1">
+                        <i class="far fa-plus-square"></i>
+                    </div>
+                    <div class="col-md-3">
+                        <p class="font-weight-bold text-primary"><a (click)="addString('Customer')">Customer</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <hr>
+                <div class="row">
+                    <div class="col-md-1">
+                        <mdb-icon fas icon="database"></mdb-icon>
+                    </div>
+                    <div class="col-md-3">
+                        <a (click)="addTextQuery('SELECT * FROM Customer;')"><p class="text-info">{{lengthCustomers}}</p></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-md-12">
                 <div class="col text-center">
@@ -182,7 +215,7 @@
                                 <div class="modal-footer justify-content-center">
                                     <a type="button" mdbBtn
                                        color="primary" class="waves-effect"
-                                       mdbWavesEffect (click)="restoreDatabase()">Yes
+                                       mdbWavesEffect (click)="reStoreDB()">Yes
                                         <!--<i class="far fa-gem ml-1"></i>-->
                                         <mdb-icon fas icon="check"></mdb-icon>
                                     </a>
