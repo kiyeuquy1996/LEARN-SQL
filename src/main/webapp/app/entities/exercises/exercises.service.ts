@@ -59,16 +59,16 @@ export class ExercisesService {
 
     protected convertDateFromClient(exercises: IExercises): IExercises {
         const copy: IExercises = Object.assign({}, exercises, {
-            createdDate: exercises.createdDate != null && exercises.createdDate.isValid() ? exercises.createdDate.toJSON() : null,
-            updatedDate: exercises.updatedDate != null && exercises.updatedDate.isValid() ? exercises.updatedDate.toJSON() : null
+            // createdDate: exercises.createdDate != null && exercises.createdDate.isValid() ? exercises.createdDate.toJSON() : null,
+            // updatedDate: exercises.updatedDate != null && exercises.updatedDate.isValid() ? exercises.updatedDate.toJSON() : null
         });
         return copy;
     }
 
     protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
         if (res.body) {
-            res.body.createdDate = res.body.createdDate != null ? moment(res.body.createdDate) : null;
-            res.body.updatedDate = res.body.updatedDate != null ? moment(res.body.updatedDate) : null;
+            // res.body.createdDate = res.body.createdDate != null ? moment(res.body.createdDate) : null;
+            // res.body.updatedDate = res.body.updatedDate != null ? moment(res.body.updatedDate) : null;
         }
         return res;
     }
@@ -76,8 +76,8 @@ export class ExercisesService {
     protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
         if (res.body) {
             res.body.forEach((exercises: IExercises) => {
-                exercises.createdDate = exercises.createdDate != null ? moment(exercises.createdDate) : null;
-                exercises.updatedDate = exercises.updatedDate != null ? moment(exercises.updatedDate) : null;
+                // exercises.createdDate = exercises.createdDate != null ? moment(exercises.createdDate) : null;
+                // exercises.updatedDate = exercises.updatedDate != null ? moment(exercises.updatedDate) : null;
             });
         }
         return res;

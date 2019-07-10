@@ -23,7 +23,7 @@ import java.util.Objects;
 @Table(name = "exercises")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Document(indexName = "exercises")
-public class Exercises implements Serializable {
+public class Exercises extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
@@ -46,22 +46,6 @@ public class Exercises implements Serializable {
     @NotNull
     @Column(name = "time_on_minutes", nullable = false)
     private Integer timeOnMinutes;
-
-    @NotNull
-    @Column(name = "created_date", nullable = false)
-    private Instant createdDate;
-
-    @NotNull
-    @Column(name = "created_by", nullable = false)
-    private Integer createdBy;
-
-    @NotNull
-    @Column(name = "updated_date", nullable = false)
-    private Instant updatedDate;
-
-    @NotNull
-    @Column(name = "updated_by", nullable = false)
-    private Integer updatedBy;
 
     @ManyToOne
     @JsonIgnoreProperties("categoryIDS")
@@ -129,58 +113,6 @@ public class Exercises implements Serializable {
 
     public void setTimeOnMinutes(Integer timeOnMinutes) {
         this.timeOnMinutes = timeOnMinutes;
-    }
-
-    public Instant getCreatedDate() {
-        return createdDate;
-    }
-
-    public Exercises createdDate(Instant createdDate) {
-        this.createdDate = createdDate;
-        return this;
-    }
-
-    public void setCreatedDate(Instant createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public Integer getCreatedBy() {
-        return createdBy;
-    }
-
-    public Exercises createdBy(Integer createdBy) {
-        this.createdBy = createdBy;
-        return this;
-    }
-
-    public void setCreatedBy(Integer createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public Instant getUpdatedDate() {
-        return updatedDate;
-    }
-
-    public Exercises updatedDate(Instant updatedDate) {
-        this.updatedDate = updatedDate;
-        return this;
-    }
-
-    public void setUpdatedDate(Instant updatedDate) {
-        this.updatedDate = updatedDate;
-    }
-
-    public Integer getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public Exercises updatedBy(Integer updatedBy) {
-        this.updatedBy = updatedBy;
-        return this;
-    }
-
-    public void setUpdatedBy(Integer updatedBy) {
-        this.updatedBy = updatedBy;
     }
 
     public Category getCategory() {
@@ -252,8 +184,8 @@ public class Exercises implements Serializable {
             ", timeOnMinutes=" + getTimeOnMinutes() +
             ", createdDate='" + getCreatedDate() + "'" +
             ", createdBy=" + getCreatedBy() +
-            ", updatedDate='" + getUpdatedDate() + "'" +
-            ", updatedBy=" + getUpdatedBy() +
+            ", updatedDate='" + getLastModifiedDate() + "'" +
+            ", updatedBy=" + getLastModifiedBy() +
             "}";
     }
 }

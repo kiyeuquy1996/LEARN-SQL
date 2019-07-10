@@ -19,7 +19,7 @@ import java.util.Objects;
 @Table(name = "sql_query")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Document(indexName = "sqlquery")
-public class SQLQuery implements Serializable {
+public class SQLQuery extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
@@ -41,22 +41,6 @@ public class SQLQuery implements Serializable {
 
     @Column(name = "description")
     private String description;
-
-    @NotNull
-    @Column(name = "created_date", nullable = false)
-    private Instant createdDate;
-
-    @NotNull
-    @Column(name = "created_by", nullable = false)
-    private Integer createdBy;
-
-    @NotNull
-    @Column(name = "updated_date", nullable = false)
-    private Instant updatedDate;
-
-    @NotNull
-    @Column(name = "updated_by", nullable = false)
-    private Integer updatedBy;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -119,57 +103,6 @@ public class SQLQuery implements Serializable {
         this.description = description;
     }
 
-    public Instant getCreatedDate() {
-        return createdDate;
-    }
-
-    public SQLQuery createdDate(Instant createdDate) {
-        this.createdDate = createdDate;
-        return this;
-    }
-
-    public void setCreatedDate(Instant createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public Integer getCreatedBy() {
-        return createdBy;
-    }
-
-    public SQLQuery createdBy(Integer createdBy) {
-        this.createdBy = createdBy;
-        return this;
-    }
-
-    public void setCreatedBy(Integer createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public Instant getUpdatedDate() {
-        return updatedDate;
-    }
-
-    public SQLQuery updatedDate(Instant updatedDate) {
-        this.updatedDate = updatedDate;
-        return this;
-    }
-
-    public void setUpdatedDate(Instant updatedDate) {
-        this.updatedDate = updatedDate;
-    }
-
-    public Integer getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public SQLQuery updatedBy(Integer updatedBy) {
-        this.updatedBy = updatedBy;
-        return this;
-    }
-
-    public void setUpdatedBy(Integer updatedBy) {
-        this.updatedBy = updatedBy;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -202,8 +135,8 @@ public class SQLQuery implements Serializable {
             ", description='" + getDescription() + "'" +
             ", createdDate='" + getCreatedDate() + "'" +
             ", createdBy=" + getCreatedBy() +
-            ", updatedDate='" + getUpdatedDate() + "'" +
-            ", updatedBy=" + getUpdatedBy() +
+            ", updatedDate='" + getLastModifiedDate() + "'" +
+            ", updatedBy=" + getLastModifiedBy() +
             "}";
     }
 }

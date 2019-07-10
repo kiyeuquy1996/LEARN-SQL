@@ -9,6 +9,16 @@ public class ArrayTryItDTO implements Serializable {
 
     private Integer updateCount;
 
+    private String mess;
+
+    public String getMess() {
+        return mess;
+    }
+
+    public void setMess(String mess) {
+        this.mess = mess;
+    }
+
     public ArrayList<HashMap<String, Object>> getRow() {
         return row;
     }

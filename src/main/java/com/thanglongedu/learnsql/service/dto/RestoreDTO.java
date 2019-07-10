@@ -6,6 +6,16 @@ import java.util.Objects;
 public class RestoreDTO implements Serializable {
     private String restore;
 
+    private Integer numberRow;
+
+    public Integer getNumberRow() {
+        return numberRow;
+    }
+
+    public void setNumberRow(Integer numberRow) {
+        this.numberRow = numberRow;
+    }
+
     public String getRestore() {
         return restore;
     }

@@ -20,7 +20,7 @@ import java.util.Objects;
 @Table(name = "content")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Document(indexName = "content")
-public class Content implements Serializable {
+public class Content extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
@@ -35,22 +35,6 @@ public class Content implements Serializable {
     @NotNull
     @Column(name = "content", nullable = false)
     private String content;
-
-    @NotNull
-    @Column(name = "created_date", nullable = false)
-    private Instant createdDate;
-
-    @NotNull
-    @Column(name = "created_by", nullable = false)
-    private Integer createdBy;
-
-    @NotNull
-    @Column(name = "updated_date", nullable = false)
-    private Instant updatedDate;
-
-    @NotNull
-    @Column(name = "updated_by", nullable = false)
-    private Integer updatedBy;
 
     @ManyToOne
     @JsonIgnoreProperties("cateIDS")
@@ -93,58 +77,6 @@ public class Content implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public Instant getCreatedDate() {
-        return createdDate;
-    }
-
-    public Content createdDate(Instant createdDate) {
-        this.createdDate = createdDate;
-        return this;
-    }
-
-    public void setCreatedDate(Instant createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public Integer getCreatedBy() {
-        return createdBy;
-    }
-
-    public Content createdBy(Integer createdBy) {
-        this.createdBy = createdBy;
-        return this;
-    }
-
-    public void setCreatedBy(Integer createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public Instant getUpdatedDate() {
-        return updatedDate;
-    }
-
-    public Content updatedDate(Instant updatedDate) {
-        this.updatedDate = updatedDate;
-        return this;
-    }
-
-    public void setUpdatedDate(Instant updatedDate) {
-        this.updatedDate = updatedDate;
-    }
-
-    public Integer getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public Content updatedBy(Integer updatedBy) {
-        this.updatedBy = updatedBy;
-        return this;
-    }
-
-    public void setUpdatedBy(Integer updatedBy) {
-        this.updatedBy = updatedBy;
     }
 
     public Category getCategory() {
@@ -202,8 +134,8 @@ public class Content implements Serializable {
             ", content='" + getContent() + "'" +
             ", createdDate='" + getCreatedDate() + "'" +
             ", createdBy=" + getCreatedBy() +
-            ", updatedDate='" + getUpdatedDate() + "'" +
-            ", updatedBy=" + getUpdatedBy() +
+            ", updatedDate='" + getLastModifiedDate() + "'" +
+            ", updatedBy=" + getLastModifiedBy() +
             "}";
     }
 }

@@ -1,0 +1,50 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <h2>Tutorial Query Sample</h2>
+        </div>
+        <div class="row">
+            <br>
+        </div>
+        <div class="row">
+            <br>
+        </div>
+        <div class="row">
+            <br>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <strong><p class="text-center">Title</p></strong>
+            </div>
+            <div class="col-md-5">
+                <strong><p class="text-center">Description</p></strong>
+            </div>
+            <div class="col-md-4">
+                <strong><p class="text-center">Query</p></strong>
+            </div>
+        </div>
+        <hr>
+    </div>
+</div>
+
+<div class="row" *ngFor="let sql of sQLQueries; let i=index">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="alert alert-light" role="alert">
+                    <mdb-icon fas icon="code"></mdb-icon> <code>&lt;{{sql.title}}&gt;</code>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="alert alert-light" role="alert">
+                    <kbd>{{sql.description}}</kbd>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="alert alert-light d-inline-block text-truncate" role="alert" style="max-width: 320px;">
+                    <code>&lt;{{sql.query}}&gt;</code>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

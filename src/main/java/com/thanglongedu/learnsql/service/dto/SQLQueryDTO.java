@@ -23,17 +23,16 @@ public class SQLQueryDTO implements Serializable {
     private String description;
 
     @NotNull
+    private String createdBy;
+
+    @NotNull
     private Instant createdDate;
 
     @NotNull
-    private Integer createdBy;
+    private String lastModifiedBy;
 
     @NotNull
-    private Instant updatedDate;
-
-    @NotNull
-    private Integer updatedBy;
-
+    private Instant lastModifiedDate;
 
     public Long getId() {
         return id;
@@ -83,28 +82,28 @@ public class SQLQueryDTO implements Serializable {
         this.createdDate = createdDate;
     }
 
-    public Integer getCreatedBy() {
+    public String getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(Integer createdBy) {
+    public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
     }
 
-    public Instant getUpdatedDate() {
-        return updatedDate;
+    public String getLastModifiedBy() {
+        return lastModifiedBy;
     }
 
-    public void setUpdatedDate(Instant updatedDate) {
-        this.updatedDate = updatedDate;
+    public void setLastModifiedBy(String lastModifiedBy) {
+        this.lastModifiedBy = lastModifiedBy;
     }
 
-    public Integer getUpdatedBy() {
-        return updatedBy;
+    public Instant getLastModifiedDate() {
+        return lastModifiedDate;
     }
 
-    public void setUpdatedBy(Integer updatedBy) {
-        this.updatedBy = updatedBy;
+    public void setLastModifiedDate(Instant lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
     }
 
     @Override
@@ -138,8 +137,8 @@ public class SQLQueryDTO implements Serializable {
             ", description='" + getDescription() + "'" +
             ", createdDate='" + getCreatedDate() + "'" +
             ", createdBy=" + getCreatedBy() +
-            ", updatedDate='" + getUpdatedDate() + "'" +
-            ", updatedBy=" + getUpdatedBy() +
+            ", updatedDate='" + getLastModifiedDate() + "'" +
+            ", updatedBy=" + getLastModifiedBy() +
             "}";
     }
 }

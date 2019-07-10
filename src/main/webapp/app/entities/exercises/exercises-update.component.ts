@@ -35,8 +35,8 @@ export class ExercisesUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({exercises}) => {
             this.exercises = exercises;
-            this.createdDate = this.exercises.createdDate != null ? this.exercises.createdDate.format(DATE_FORMAT) : null;
-            this.updatedDate = this.exercises.updatedDate != null ? this.exercises.updatedDate.format(DATE_FORMAT) : null;
+            // this.createdDate = this.exercises.createdDate != null ? this.exercises.createdDate.format(DATE_FORMAT) : null;
+            // this.updatedDate = this.exercises.updatedDate != null ? this.exercises.updatedDate.format(DATE_FORMAT) : null;
         });
         this.categoryService
             .query()
@@ -53,8 +53,8 @@ export class ExercisesUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
-        this.exercises.createdDate = this.createdDate != null ? moment(this.createdDate, DATE_FORMAT) : null;
-        this.exercises.updatedDate = this.updatedDate != null ? moment(this.updatedDate, DATE_FORMAT) : null;
+        // this.exercises.createdDate = this.createdDate != null ? moment(this.createdDate, DATE_FORMAT) : null;
+        // this.exercises.updatedDate = this.updatedDate != null ? moment(this.updatedDate, DATE_FORMAT) : null;
         if (this.exercises.id !== undefined) {
             this.subscribeToSaveResponse(this.exercisesService.update(this.exercises));
         } else {

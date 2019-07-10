@@ -50,10 +50,10 @@
             <th><span jhiTranslate="global.field.id">ID</span></th>
             <th><span jhiTranslate="learnSqlApp.exercisesAnswer.result">Result</span></th>
             <th><span jhiTranslate="learnSqlApp.exercisesAnswer.isCorrect">Is Correct</span></th>
-            <th><span jhiTranslate="learnSqlApp.exercisesAnswer.createdDate">Created Date</span></th>
-            <th><span jhiTranslate="learnSqlApp.exercisesAnswer.createdBy">Created By</span></th>
-            <th><span jhiTranslate="learnSqlApp.exercisesAnswer.updatedDate">Updated Date</span></th>
-            <th><span jhiTranslate="learnSqlApp.exercisesAnswer.updatedBy">Updated By</span></th>
+<!--            <th><span jhiTranslate="learnSqlApp.exercisesAnswer.createdDate">Created Date</span></th>-->
+<!--            <th><span jhiTranslate="learnSqlApp.exercisesAnswer.createdBy">Created By</span></th>-->
+<!--            <th><span jhiTranslate="learnSqlApp.exercisesAnswer.updatedDate">Updated Date</span></th>-->
+<!--            <th><span jhiTranslate="learnSqlApp.exercisesAnswer.updatedBy">Updated By</span></th>-->
             <th><span jhiTranslate="learnSqlApp.exercisesAnswer.exercises">Exercises</span></th>
             <th></th>
             </tr>
@@ -63,13 +63,13 @@
                 <td><a [routerLink]="['/exercises-answer', exercisesAnswer.id, 'view' ]">{{exercisesAnswer.id}}</a></td>
                 <td>{{exercisesAnswer.result}}</td>
                 <td>{{exercisesAnswer.isCorrect}}</td>
-                <td>{{exercisesAnswer.createdDate | date:'medium'}}</td>
-                <td>{{exercisesAnswer.createdBy}}</td>
-                <td>{{exercisesAnswer.updatedDate | date:'medium'}}</td>
-                <td>{{exercisesAnswer.updatedBy}}</td>
+<!--                <td>{{exercisesAnswer.createdDate | date:'medium'}}</td>-->
+<!--                <td>{{exercisesAnswer.createdBy}}</td>-->
+<!--                <td>{{exercisesAnswer.updatedDate | date:'medium'}}</td>-->
+<!--                <td>{{exercisesAnswer.updatedBy}}</td>-->
                 <td>
                     <div *ngIf="exercisesAnswer.exercisesId">
-                        <a [routerLink]="['../exercises', exercisesAnswer.exercisesId , 'view' ]" >{{exercisesAnswer.exercisesId}}</a>
+                        <a [routerLink]="['../exercises', exercisesAnswer.exercisesId , 'view' ]" >{{exercisesAnswer.exercisesName}}</a>
                     </div>
                 </td>
                 <td class="text-right">

@@ -6,10 +6,10 @@ export interface ISQLQuery {
     nameUrl?: string;
     query?: string;
     description?: string;
-    createdDate?: Moment;
-    createdBy?: number;
-    updatedDate?: Moment;
-    updatedBy?: number;
+    createdBy?: string;
+    createdDate?: Date;
+    lastModifiedBy?: string;
+    lastModifiedDate?: Date;
 }
 
 export class SQLQuery implements ISQLQuery {
@@ -19,9 +19,9 @@ export class SQLQuery implements ISQLQuery {
         public nameUrl?: string,
         public query?: string,
         public description?: string,
-        public createdDate?: Moment,
-        public createdBy?: number,
-        public updatedDate?: Moment,
-        public updatedBy?: number
+        public createdBy?: string,
+        public createdDate?: Date,
+        public lastModifiedBy?: string,
+        public lastModifiedDate?: Date,
     ) {}
 }

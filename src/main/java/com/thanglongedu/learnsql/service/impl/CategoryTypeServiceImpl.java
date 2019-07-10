@@ -117,7 +117,7 @@ public class CategoryTypeServiceImpl implements CategoryTypeService {
             .collect(Collectors.toList());
     }
 
-//    @Scheduled(fixedDelay=5000)
+//    @Scheduled(fixedDelay=10000)
 //    public void replicateData() {
 //        categoryTypeSearchRepository.saveAll(categoryTypeRepository.findAll());
 //    }

@@ -12,6 +12,7 @@ import org.mapstruct.*;
 public interface ExercisesMapper extends EntityMapper<ExercisesDTO, Exercises> {
 
     @Mapping(source = "category.id", target = "categoryId")
+    @Mapping(source = "category.nameCategory", target = "categoryName")
     ExercisesDTO toDto(Exercises exercises);
 
     @Mapping(source = "categoryId", target = "category")

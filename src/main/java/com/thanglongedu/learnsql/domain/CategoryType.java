@@ -22,7 +22,7 @@ import java.util.Objects;
 @Table(name = "category_type")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Document(indexName = "categorytype")
-public class CategoryType implements Serializable {
+public class CategoryType extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
@@ -36,22 +36,6 @@ public class CategoryType implements Serializable {
 
     @Column(name = "description")
     private String description;
-
-    @NotNull
-    @Column(name = "created_date", nullable = false)
-    private Instant createdDate;
-
-    @NotNull
-    @Column(name = "created_by", nullable = false)
-    private Integer createdBy;
-
-    @NotNull
-    @Column(name = "updated_date", nullable = false)
-    private Instant updatedDate;
-
-    @NotNull
-    @Column(name = "updated_by", nullable = false)
-    private Integer updatedBy;
 
     @OneToMany(mappedBy = "categoryType")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -89,58 +73,6 @@ public class CategoryType implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Instant getCreatedDate() {
-        return createdDate;
-    }
-
-    public CategoryType createdDate(Instant createdDate) {
-        this.createdDate = createdDate;
-        return this;
-    }
-
-    public void setCreatedDate(Instant createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public Integer getCreatedBy() {
-        return createdBy;
-    }
-
-    public CategoryType createdBy(Integer createdBy) {
-        this.createdBy = createdBy;
-        return this;
-    }
-
-    public void setCreatedBy(Integer createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public Instant getUpdatedDate() {
-        return updatedDate;
-    }
-
-    public CategoryType updatedDate(Instant updatedDate) {
-        this.updatedDate = updatedDate;
-        return this;
-    }
-
-    public void setUpdatedDate(Instant updatedDate) {
-        this.updatedDate = updatedDate;
-    }
-
-    public Integer getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public CategoryType updatedBy(Integer updatedBy) {
-        this.updatedBy = updatedBy;
-        return this;
-    }
-
-    public void setUpdatedBy(Integer updatedBy) {
-        this.updatedBy = updatedBy;
     }
 
     public Set<Category> getCategoryTypeIDS() {
@@ -197,8 +129,8 @@ public class CategoryType implements Serializable {
             ", description='" + getDescription() + "'" +
             ", createdDate='" + getCreatedDate() + "'" +
             ", createdBy=" + getCreatedBy() +
-            ", updatedDate='" + getUpdatedDate() + "'" +
-            ", updatedBy=" + getUpdatedBy() +
+            ", updatedDate='" + getLastModifiedDate() + "'" +
+            ", updatedBy=" + getLastModifiedBy() +
             "}";
     }
 }

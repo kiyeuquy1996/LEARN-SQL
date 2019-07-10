@@ -5,10 +5,10 @@ export interface ICategoryType {
     id?: number;
     nameCategoryType?: string;
     description?: string;
-    createdDate?: Moment;
-    createdBy?: number;
-    updatedDate?: Moment;
-    updatedBy?: number;
+    createdBy?: string;
+    createdDate?: Date;
+    lastModifiedBy?: string;
+    lastModifiedDate?: Date;
     categoryTypeIDS?: ICategory[];
 }
 
@@ -17,10 +17,10 @@ export class CategoryType implements ICategoryType {
         public id?: number,
         public nameCategoryType?: string,
         public description?: string,
-        public createdDate?: Moment,
-        public createdBy?: number,
-        public updatedDate?: Moment,
-        public updatedBy?: number,
+        public createdBy?: string,
+        public createdDate?: Date,
+        public lastModifiedBy?: string,
+        public lastModifiedDate?: Date,
         public categoryTypeIDS?: ICategory[]
     ) {}
 }

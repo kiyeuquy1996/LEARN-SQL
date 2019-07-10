@@ -59,16 +59,16 @@ export class SQLQueryService {
 
     protected convertDateFromClient(sQLQuery: ISQLQuery): ISQLQuery {
         const copy: ISQLQuery = Object.assign({}, sQLQuery, {
-            createdDate: sQLQuery.createdDate != null && sQLQuery.createdDate.isValid() ? sQLQuery.createdDate.toJSON() : null,
-            updatedDate: sQLQuery.updatedDate != null && sQLQuery.updatedDate.isValid() ? sQLQuery.updatedDate.toJSON() : null
+            // createdDate: sQLQuery.createdDate != null && sQLQuery.createdDate.isValid() ? sQLQuery.createdDate.toJSON() : null,
+            // updatedDate: sQLQuery.updatedDate != null && sQLQuery.updatedDate.isValid() ? sQLQuery.updatedDate.toJSON() : null
         });
         return copy;
     }
 
     protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
         if (res.body) {
-            res.body.createdDate = res.body.createdDate != null ? moment(res.body.createdDate) : null;
-            res.body.updatedDate = res.body.updatedDate != null ? moment(res.body.updatedDate) : null;
+            // res.body.createdDate = res.body.createdDate != null ? moment(res.body.createdDate) : null;
+            // res.body.updatedDate = res.body.updatedDate != null ? moment(res.body.updatedDate) : null;
         }
         return res;
     }
@@ -76,8 +76,8 @@ export class SQLQueryService {
     protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
         if (res.body) {
             res.body.forEach((sQLQuery: ISQLQuery) => {
-                sQLQuery.createdDate = sQLQuery.createdDate != null ? moment(sQLQuery.createdDate) : null;
-                sQLQuery.updatedDate = sQLQuery.updatedDate != null ? moment(sQLQuery.updatedDate) : null;
+                // sQLQuery.createdDate = sQLQuery.createdDate != null ? moment(sQLQuery.createdDate) : null;
+                // sQLQuery.updatedDate = sQLQuery.updatedDate != null ? moment(sQLQuery.updatedDate) : null;
             });
         }
         return res;

@@ -13,7 +13,7 @@ import {JhiAlertService} from 'ng-jhipster';
 import {TryItService} from 'app/layouts/try-it.service';
 import {SERVER_API_URL} from 'app/app.constants';
 import {ITryIt, TryIt} from 'app/shared/model/tryit.model';
-import {MDBModalRef} from "angular-bootstrap-md";
+import {MDBModalRef} from 'angular-bootstrap-md';
 
 @Component({
     selector: 'jhi-try-it',
@@ -27,24 +27,33 @@ export class TryitsComponent implements OnInit {
     orders: IOrders[];
     shippers: IShipper[];
 
+    isHidden: boolean = true;
+
     lengthCustomers: number;
     lengthEmployees: number;
     lengthOrders: number;
     lengthShippers: number;
 
     query: string;
-    nameArray: any[];
+    duplicate: string;
+    listYourNameTable: any[];
     data: any[];
     reStoreData: any;
     createTableName: any;
+    deleteTblS: any;
+
+    public html: string = '<span class="btn btn-danger"><strong>Note: </strong>If you confirm, your entire data sheet created earlier will be deleted</span>';
 
     tryIt: ITryIt;
 
     @ViewChild('frame') dialog: MDBModalRef;
+    @ViewChild('alert') alert: ElementRef;
 
     public resourceUrl = SERVER_API_URL + 'api/try-it';
     public resourceUrlRestore = SERVER_API_URL + 'api/restore';
     public resourceUrlCreateTable = SERVER_API_URL + 'api/create-table';
+    public resourceUrlDeleteTable = SERVER_API_URL + 'api/delete-table';
+    public resourceUrlYourTable = SERVER_API_URL + 'api/loadTable';
 
     constructor(
         private tryitService: TryItService,
@@ -62,13 +71,15 @@ export class TryitsComponent implements OnInit {
         this.query = null;
     }
 
-    getQuerySQL(query?: any) {
-        console.log(query);
+    closeAlert() {
+        this.alert.nativeElement.classList.remove('show');
+    }
 
+    getQuerySQL(query?: any) {
         let params0: string;
         let params1: string;
         let params2: string;
-        let nametable = query.split(' ', 3);
+        const nametable = query.split(' ', 3);
 
         params0 = nametable[0];
         params1 = nametable[1];
@@ -81,51 +92,80 @@ export class TryitsComponent implements OnInit {
                 params2.toUpperCase() === 'EMPLOYEES' ||
                 params2.toUpperCase() === 'ORDERS' ||
                 params2.toUpperCase() === 'SHIPPER') {
-                console.log('Duplicate name table');
+                this.clearQuery();
+                this.duplicate = 'Duplicate name table available!';
             } else {
                 this.http
                     .post(this.resourceUrlCreateTable, this.tryIt, {observe: 'response'})
+                    .pipe(
+                        filter((res: HttpResponse<any>) => res.ok),
+                        map((res: HttpResponse<any>) => res.body)
+                    )
                     .subscribe((res: any) => {
+                        this.isHidden = false;
+                        this.clearQuery();
+                        this.loadServiceDataTable();
                         this.createTableName = res;
                         console.log(res);
-                    });
+                        console.log('create table');
+                    }, (res: HttpErrorResponse) => console.log(res));
             }
+        } else {
+            this.http
+                .post(this.resourceUrl, this.tryIt, {observe: 'response'})
+                .pipe(
+                    filter((res: HttpResponse<any[]>) => res.ok),
+                    map((res: HttpResponse<any[]>) => res.body)
+                )
+                .subscribe((res: any[]) => {
+                    this.clearQuery();
+                    this.loadServiceDataTable();
+                    this.data = res;
+                    console.log(res);
+                    console.log('query sql');
+                }, (res: HttpErrorResponse) => console.log(res));
         }
-
-        this.http
-            .post(this.resourceUrl, this.tryIt, {observe: 'response'})
-            .pipe(
-                filter((res: HttpResponse<any[]>) => res.ok),
-                map((res: HttpResponse<any[]>) => res.body)
-            )
-            .subscribe((res: any[]) => {
-                this.data = res;
-                console.log(res);
-
-                console.log(Object.keys(res[0]));
-
-                // if (res.length > 0) {
-                //     this.nameArray = Object.keys(res[0]);
-                // this.nameArray = this.nameArray.sort((x, y) => {
-                //     return x.length - y.length;
-                // });
-                // }
-            });
     }
 
     reStoreDB() {
         this.http
             .post(this.resourceUrlRestore, {observe: 'response'})
             .subscribe((res: any) => {
-                this.reStoreData = res;
+                this.clearQuerySQL();
+                this.loadServiceDataTable();
                 this.dialog.hide();
+                this.reStoreData = res;
+            });
+    }
+
+    deleteTbl() {
+        this.http
+            .post(this.resourceUrlDeleteTable, {observe: 'response'})
+            .subscribe((res: any) => {
+                this.isHidden = true;
+                this.clearQuerySQL();
+                this.loadServiceDataTable();
+                this.deleteTblS = res;
+                this.listYourNameTable = null;
                 console.log(res);
-                console.log(this.reStoreData);
+                console.log('delete table');
             });
     }
 
     clearQuerySQL() {
+        this.deleteTblS = null;
+        this.createTableName = null;
+        this.reStoreData = null;
+        this.duplicate = null;
         this.query = null;
+        this.data = null;
+    }
+
+    clearQuery() {
+        this.deleteTblS = null;
+        this.createTableName = null;
+        this.reStoreData = null;
+        this.duplicate = null;
         this.data = null;
     }
 
@@ -143,15 +183,20 @@ export class TryitsComponent implements OnInit {
         }
     }
 
-    restoreDatabase() {
-        alert('Restore Database');
-    }
-
     onClose(event: any) {
         console.log(event);
     }
 
     loadServiceDataTable() {
+        this.http
+            .post(this.resourceUrlYourTable, {observe: 'response'})
+            .subscribe((res: any[]) => {
+                this.listYourNameTable = res;
+                console.log(res);
+                console.log('listYourNameTable');
+
+            });
+
         this.customerService
             .query()
             .pipe(

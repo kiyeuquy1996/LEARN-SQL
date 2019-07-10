@@ -90,104 +90,104 @@
                             <option selected [ngValue]="null"></option>
                             <option [ngValue]="categoryTypeOption.id"
                                     *ngFor="let categoryTypeOption of categorytypes; trackBy: trackCategoryTypeById">
-                                {{categoryTypeOption.id}}
+                                {{categoryTypeOption.nameCategoryType}}
                             </option>
                         </select>
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-5">
-                        <div class="md-form">
-                            <label jhiTranslate="learnSqlApp.category.createdDate"
-                                   for="field_createdDate">Created Date</label>
-                            <input mdbInput id="field_createdDate" type="date"
-                                   class="form-control" name="createdDate"
-                                   [(ngModel)]="createdDate" placeholder="YYYY-MM-DD"
-                                   required/>
-                            <div
-                                [hidden]="!(editForm.controls.createdDate?.dirty && editForm.controls.createdDate?.invalid)">
-                                <small class="form-text text-danger"
-                                       [hidden]="!editForm.controls.createdDate?.errors?.required"
-                                       jhiTranslate="entity.validation.required">
-                                    This field is required.
-                                </small>
-                                <small class="form-text text-danger"
-                                       [hidden]="!editForm.controls.createdDate?.errors?.ZonedDateTimelocal"
-                                       jhiTranslate="entity.validation.ZonedDateTimelocal">
-                                    This field should be a date and time.
-                                </small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-5">
-                        <div class="md-form">
-                            <label class="" jhiTranslate="learnSqlApp.category.createdBy"
-                                   for="field_createdBy">Created By</label>
-                            <input mdbInput type="number" class="form-control" name="createdBy" id="field_createdBy"
-                                   [(ngModel)]="category.createdBy" required/>
-                            <div
-                                [hidden]="!(editForm.controls.createdBy?.dirty && editForm.controls.createdBy?.invalid)">
-                                <small class="form-text text-danger"
-                                       [hidden]="!editForm.controls.createdBy?.errors?.required"
-                                       jhiTranslate="entity.validation.required">
-                                    This field is required.
-                                </small>
-                                <small class="form-text text-danger"
-                                       [hidden]="!editForm.controls.createdBy?.errors?.number"
-                                       jhiTranslate="entity.validation.number">
-                                    This field should be a number.
-                                </small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<!--                <div class="row">-->
+<!--                    <div class="col-5">-->
+<!--                        <div class="md-form">-->
+<!--                            <label jhiTranslate="learnSqlApp.category.createdDate"-->
+<!--                                   for="field_createdDate">Created Date</label>-->
+<!--                            <input mdbInput id="field_createdDate" type="date"-->
+<!--                                   class="form-control" name="createdDate"-->
+<!--                                   [(ngModel)]="createdDate" placeholder="YYYY-MM-DD"-->
+<!--                                   required/>-->
+<!--                            <div-->
+<!--                                [hidden]="!(editForm.controls.createdDate?.dirty && editForm.controls.createdDate?.invalid)">-->
+<!--                                <small class="form-text text-danger"-->
+<!--                                       [hidden]="!editForm.controls.createdDate?.errors?.required"-->
+<!--                                       jhiTranslate="entity.validation.required">-->
+<!--                                    This field is required.-->
+<!--                                </small>-->
+<!--                                <small class="form-text text-danger"-->
+<!--                                       [hidden]="!editForm.controls.createdDate?.errors?.ZonedDateTimelocal"-->
+<!--                                       jhiTranslate="entity.validation.ZonedDateTimelocal">-->
+<!--                                    This field should be a date and time.-->
+<!--                                </small>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-5">-->
+<!--                        <div class="md-form">-->
+<!--                            <label class="" jhiTranslate="learnSqlApp.category.createdBy"-->
+<!--                                   for="field_createdBy">Created By</label>-->
+<!--                            <input mdbInput type="number" class="form-control" name="createdBy" id="field_createdBy"-->
+<!--                                   [(ngModel)]="category.createdBy" required/>-->
+<!--                            <div-->
+<!--                                [hidden]="!(editForm.controls.createdBy?.dirty && editForm.controls.createdBy?.invalid)">-->
+<!--                                <small class="form-text text-danger"-->
+<!--                                       [hidden]="!editForm.controls.createdBy?.errors?.required"-->
+<!--                                       jhiTranslate="entity.validation.required">-->
+<!--                                    This field is required.-->
+<!--                                </small>-->
+<!--                                <small class="form-text text-danger"-->
+<!--                                       [hidden]="!editForm.controls.createdBy?.errors?.number"-->
+<!--                                       jhiTranslate="entity.validation.number">-->
+<!--                                    This field should be a number.-->
+<!--                                </small>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
 
-                <div class="row">
-                    <div class="col-5">
-                        <div class="md-form">
-                            <label jhiTranslate="learnSqlApp.category.updatedDate"
-                                   for="field_updatedDate">Updated Date</label>
-                            <input mdbInput id="field_updatedDate" type="date" class="form-control" name="updatedDate"
-                                   [(ngModel)]="updatedDate" placeholder="YYYY-MM-DD"
-                                   required/>
-                            <div
-                                [hidden]="!(editForm.controls.updatedDate?.dirty && editForm.controls.updatedDate?.invalid)">
-                                <small class="form-text text-danger"
-                                       [hidden]="!editForm.controls.updatedDate?.errors?.required"
-                                       jhiTranslate="entity.validation.required">
-                                    This field is required.
-                                </small>
-                                <small class="form-text text-danger"
-                                       [hidden]="!editForm.controls.updatedDate?.errors?.ZonedDateTimelocal"
-                                       jhiTranslate="entity.validation.ZonedDateTimelocal">
-                                    This field should be a date and time.
-                                </small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-5">
-                        <div class="md-form">
-                            <label class="" jhiTranslate="learnSqlApp.category.updatedBy"
-                                   for="field_updatedBy">Updated By</label>
-                            <input mdbInput type="number" class="form-control" name="updatedBy" id="field_updatedBy"
-                                   [(ngModel)]="category.updatedBy" required/>
-                            <div
-                                [hidden]="!(editForm.controls.updatedBy?.dirty && editForm.controls.updatedBy?.invalid)">
-                                <small class="form-text text-danger"
-                                       [hidden]="!editForm.controls.updatedBy?.errors?.required"
-                                       jhiTranslate="entity.validation.required">
-                                    This field is required.
-                                </small>
-                                <small class="form-text text-danger"
-                                       [hidden]="!editForm.controls.updatedBy?.errors?.number"
-                                       jhiTranslate="entity.validation.number">
-                                    This field should be a number.
-                                </small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<!--                <div class="row">-->
+<!--                    <div class="col-5">-->
+<!--                        <div class="md-form">-->
+<!--                            <label jhiTranslate="learnSqlApp.category.updatedDate"-->
+<!--                                   for="field_updatedDate">Updated Date</label>-->
+<!--                            <input mdbInput id="field_updatedDate" type="date" class="form-control" name="updatedDate"-->
+<!--                                   [(ngModel)]="updatedDate" placeholder="YYYY-MM-DD"-->
+<!--                                   required/>-->
+<!--                            <div-->
+<!--                                [hidden]="!(editForm.controls.updatedDate?.dirty && editForm.controls.updatedDate?.invalid)">-->
+<!--                                <small class="form-text text-danger"-->
+<!--                                       [hidden]="!editForm.controls.updatedDate?.errors?.required"-->
+<!--                                       jhiTranslate="entity.validation.required">-->
+<!--                                    This field is required.-->
+<!--                                </small>-->
+<!--                                <small class="form-text text-danger"-->
+<!--                                       [hidden]="!editForm.controls.updatedDate?.errors?.ZonedDateTimelocal"-->
+<!--                                       jhiTranslate="entity.validation.ZonedDateTimelocal">-->
+<!--                                    This field should be a date and time.-->
+<!--                                </small>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-5">-->
+<!--                        <div class="md-form">-->
+<!--                            <label class="" jhiTranslate="learnSqlApp.category.updatedBy"-->
+<!--                                   for="field_updatedBy">Updated By</label>-->
+<!--                            <input mdbInput type="number" class="form-control" name="updatedBy" id="field_updatedBy"-->
+<!--                                   [(ngModel)]="category.updatedBy" required/>-->
+<!--                            <div-->
+<!--                                [hidden]="!(editForm.controls.updatedBy?.dirty && editForm.controls.updatedBy?.invalid)">-->
+<!--                                <small class="form-text text-danger"-->
+<!--                                       [hidden]="!editForm.controls.updatedBy?.errors?.required"-->
+<!--                                       jhiTranslate="entity.validation.required">-->
+<!--                                    This field is required.-->
+<!--                                </small>-->
+<!--                                <small class="form-text text-danger"-->
+<!--                                       [hidden]="!editForm.controls.updatedBy?.errors?.number"-->
+<!--                                       jhiTranslate="entity.validation.number">-->
+<!--                                    This field should be a number.-->
+<!--                                </small>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-danger" (click)="previousState()">

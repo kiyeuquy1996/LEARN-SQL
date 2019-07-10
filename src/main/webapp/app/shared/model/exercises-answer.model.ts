@@ -4,11 +4,12 @@ export interface IExercisesAnswer {
     id?: number;
     result?: string;
     isCorrect?: boolean;
-    createdDate?: Moment;
-    createdBy?: number;
-    updatedDate?: Moment;
-    updatedBy?: number;
+    createdBy?: string;
+    createdDate?: Date;
+    lastModifiedBy?: string;
+    lastModifiedDate?: Date;
     exercisesId?: number;
+    exercisesName?: string;
 }
 
 export class ExercisesAnswer implements IExercisesAnswer {
@@ -16,11 +17,12 @@ export class ExercisesAnswer implements IExercisesAnswer {
         public id?: number,
         public result?: string,
         public isCorrect?: boolean,
-        public createdDate?: Moment,
-        public createdBy?: number,
-        public updatedDate?: Moment,
-        public updatedBy?: number,
-        public exercisesId?: number
+        public createdBy?: string,
+        public createdDate?: Date,
+        public lastModifiedBy?: string,
+        public lastModifiedDate?: Date,
+        public exercisesId?: number,
+        public exercisesName?: string
     ) {
         this.isCorrect = this.isCorrect || false;
     }

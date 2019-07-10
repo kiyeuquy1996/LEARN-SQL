@@ -51,10 +51,10 @@
                 <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
                 <th><span jhiTranslate="learnSqlApp.content.title">Title</span></th>
                 <th><span jhiTranslate="learnSqlApp.content.content">Content</span></th>
-                <th><span jhiTranslate="learnSqlApp.content.createdDate">Created Date</span></th>
-                <th><span jhiTranslate="learnSqlApp.content.createdBy">Created By</span></th>
-                <th><span jhiTranslate="learnSqlApp.content.updatedDate">Updated Date</span></th>
-                <th><span jhiTranslate="learnSqlApp.content.updatedBy">Updated By</span></th>
+<!--                <th><span jhiTranslate="learnSqlApp.content.createdDate">Created Date</span></th>-->
+<!--                <th><span jhiTranslate="learnSqlApp.content.createdBy">Created By</span></th>-->
+<!--                <th><span jhiTranslate="learnSqlApp.content.updatedDate">Updated Date</span></th>-->
+<!--                <th><span jhiTranslate="learnSqlApp.content.updatedBy">Updated By</span></th>-->
                 <th><span jhiTranslate="learnSqlApp.content.category">Category</span></th>
                 <th><span jhiTranslate="learnSqlApp.content.typeContent">Type Content</span></th>
                 <th></th>
@@ -65,18 +65,18 @@
                 <td scope="row"><a [routerLink]="['/content', content.id, 'view' ]">{{content.id}}</a></td>
                 <td>{{content.title}}</td>
                 <td>{{content.content}}</td>
-                <td>{{content.createdDate | date:'medium'}}</td>
-                <td>{{content.createdBy}}</td>
-                <td>{{content.updatedDate | date:'medium'}}</td>
-                <td>{{content.updatedBy}}</td>
+<!--                <td>{{content.createdDate | date:'medium'}}</td>-->
+<!--                <td>{{content.createdBy}}</td>-->
+<!--                <td>{{content.updatedDate | date:'medium'}}</td>-->
+<!--                <td>{{content.updatedBy}}</td>-->
                 <td>
                     <div *ngIf="content.categoryId">
-                        <a [routerLink]="['../category', content.categoryId , 'view' ]">{{content.categoryId}}</a>
+                        <a [routerLink]="['../category', content.categoryId , 'view' ]">{{content.categoryName}}</a>
                     </div>
                 </td>
                 <td>
                     <div *ngIf="content.typeContentId">
-                        <a [routerLink]="['../type-content', content.typeContentId , 'view' ]">{{content.typeContentId}}</a>
+                        <a [routerLink]="['../type-content', content.typeContentId , 'view' ]">{{content.typeContentName}}</a>
                     </div>
                 </td>
                 <td class="text-right">

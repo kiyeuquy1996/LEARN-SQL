@@ -9,10 +9,11 @@ export interface ICategory {
     isKeyword?: boolean;
     description?: string;
     nameTableData?: string;
-    createdDate?: Moment;
-    createdBy?: number;
-    updatedDate?: Moment;
-    updatedBy?: number;
+    createdBy?: string;
+    createdDate?: Date;
+    lastModifiedBy?: string;
+    lastModifiedDate?: Date;
+    categoryTypeName?: string;
     categoryTypeId?: number;
     cateIDS?: IContent[];
     categoryIDS?: IExercises[];
@@ -26,10 +27,11 @@ export class Category implements ICategory {
         public isKeyword?: boolean,
         public description?: string,
         public nameTableData?: string,
-        public createdDate?: Moment,
-        public createdBy?: number,
-        public updatedDate?: Moment,
-        public updatedBy?: number,
+        public createdBy?: string,
+        public createdDate?: Date,
+        public lastModifiedBy?: string,
+        public lastModifiedDate?: Date,
+        public categoryTypeName?: string,
         public categoryTypeId?: number,
         public cateIDS?: IContent[],
         public categoryIDS?: IExercises[]

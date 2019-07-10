@@ -58,14 +58,14 @@ public class ContentResourceIntTest {
     private static final Instant DEFAULT_CREATED_DATE = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_CREATED_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
-    private static final Integer DEFAULT_CREATED_BY = 1;
-    private static final Integer UPDATED_CREATED_BY = 2;
+    private static final String DEFAULT_CREATED_BY = "1";
+    private static final String UPDATED_CREATED_BY = "2";
 
     private static final Instant DEFAULT_UPDATED_DATE = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_UPDATED_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
-    private static final Integer DEFAULT_UPDATED_BY = 1;
-    private static final Integer UPDATED_UPDATED_BY = 2;
+    private static final String DEFAULT_UPDATED_BY = "1";
+    private static final String UPDATED_UPDATED_BY = "2";
 
     @Autowired
     private ContentRepository contentRepository;
@@ -124,11 +124,11 @@ public class ContentResourceIntTest {
     public static Content createEntity(EntityManager em) {
         Content content = new Content()
             .title(DEFAULT_TITLE)
-            .content(DEFAULT_CONTENT)
-            .createdDate(DEFAULT_CREATED_DATE)
-            .createdBy(DEFAULT_CREATED_BY)
-            .updatedDate(DEFAULT_UPDATED_DATE)
-            .updatedBy(DEFAULT_UPDATED_BY);
+            .content(DEFAULT_CONTENT);
+//            .createdDate(DEFAULT_CREATED_DATE)
+//            .createdBy(DEFAULT_CREATED_BY)
+//            .updatedDate(DEFAULT_UPDATED_DATE)
+//            .updatedBy(DEFAULT_UPDATED_BY);
         return content;
     }
 
@@ -157,8 +157,8 @@ public class ContentResourceIntTest {
         assertThat(testContent.getContent()).isEqualTo(DEFAULT_CONTENT);
         assertThat(testContent.getCreatedDate()).isEqualTo(DEFAULT_CREATED_DATE);
         assertThat(testContent.getCreatedBy()).isEqualTo(DEFAULT_CREATED_BY);
-        assertThat(testContent.getUpdatedDate()).isEqualTo(DEFAULT_UPDATED_DATE);
-        assertThat(testContent.getUpdatedBy()).isEqualTo(DEFAULT_UPDATED_BY);
+        assertThat(testContent.getLastModifiedDate()).isEqualTo(DEFAULT_UPDATED_DATE);
+        assertThat(testContent.getLastModifiedBy()).isEqualTo(DEFAULT_UPDATED_BY);
 
         // Validate the Content in Elasticsearch
         verify(mockContentSearchRepository, times(1)).save(testContent);
@@ -268,7 +268,7 @@ public class ContentResourceIntTest {
     public void checkUpdatedDateIsRequired() throws Exception {
         int databaseSizeBeforeTest = contentRepository.findAll().size();
         // set the field null
-        content.setUpdatedDate(null);
+        content.setLastModifiedDate(null);
 
         // Create the Content, which fails.
         ContentDTO contentDTO = contentMapper.toDto(content);
@@ -287,7 +287,7 @@ public class ContentResourceIntTest {
     public void checkUpdatedByIsRequired() throws Exception {
         int databaseSizeBeforeTest = contentRepository.findAll().size();
         // set the field null
-        content.setUpdatedBy(null);
+        content.setLastModifiedBy(null);
 
         // Create the Content, which fails.
         ContentDTO contentDTO = contentMapper.toDto(content);
@@ -361,11 +361,11 @@ public class ContentResourceIntTest {
         em.detach(updatedContent);
         updatedContent
             .title(UPDATED_TITLE)
-            .content(UPDATED_CONTENT)
-            .createdDate(UPDATED_CREATED_DATE)
-            .createdBy(UPDATED_CREATED_BY)
-            .updatedDate(UPDATED_UPDATED_DATE)
-            .updatedBy(UPDATED_UPDATED_BY);
+            .content(UPDATED_CONTENT);
+//            .createdDate(UPDATED_CREATED_DATE)
+//            .createdBy(UPDATED_CREATED_BY)
+//            .updatedDate(UPDATED_UPDATED_DATE)
+//            .updatedBy(UPDATED_UPDATED_BY);
         ContentDTO contentDTO = contentMapper.toDto(updatedContent);
 
         restContentMockMvc.perform(put("/api/contents")
@@ -381,8 +381,8 @@ public class ContentResourceIntTest {
         assertThat(testContent.getContent()).isEqualTo(UPDATED_CONTENT);
         assertThat(testContent.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
         assertThat(testContent.getCreatedBy()).isEqualTo(UPDATED_CREATED_BY);
-        assertThat(testContent.getUpdatedDate()).isEqualTo(UPDATED_UPDATED_DATE);
-        assertThat(testContent.getUpdatedBy()).isEqualTo(UPDATED_UPDATED_BY);
+        assertThat(testContent.getLastModifiedDate()).isEqualTo(UPDATED_UPDATED_DATE);
+        assertThat(testContent.getLastModifiedBy()).isEqualTo(UPDATED_UPDATED_BY);
 
         // Validate the Content in Elasticsearch
         verify(mockContentSearchRepository, times(1)).save(testContent);

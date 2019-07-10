@@ -59,18 +59,18 @@ export class ExercisesAnswerService {
 
     protected convertDateFromClient(exercisesAnswer: IExercisesAnswer): IExercisesAnswer {
         const copy: IExercisesAnswer = Object.assign({}, exercisesAnswer, {
-            createdDate:
-                exercisesAnswer.createdDate != null && exercisesAnswer.createdDate.isValid() ? exercisesAnswer.createdDate.toJSON() : null,
-            updatedDate:
-                exercisesAnswer.updatedDate != null && exercisesAnswer.updatedDate.isValid() ? exercisesAnswer.updatedDate.toJSON() : null
+            // createdDate:
+            //     exercisesAnswer.createdDate != null && exercisesAnswer.createdDate.isValid() ? exercisesAnswer.createdDate.toJSON() : null,
+            // updatedDate:
+            //     exercisesAnswer.updatedDate != null && exercisesAnswer.updatedDate.isValid() ? exercisesAnswer.updatedDate.toJSON() : null
         });
         return copy;
     }
 
     protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
         if (res.body) {
-            res.body.createdDate = res.body.createdDate != null ? moment(res.body.createdDate) : null;
-            res.body.updatedDate = res.body.updatedDate != null ? moment(res.body.updatedDate) : null;
+            // res.body.createdDate = res.body.createdDate != null ? moment(res.body.createdDate) : null;
+            // res.body.updatedDate = res.body.updatedDate != null ? moment(res.body.updatedDate) : null;
         }
         return res;
     }
@@ -78,8 +78,8 @@ export class ExercisesAnswerService {
     protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
         if (res.body) {
             res.body.forEach((exercisesAnswer: IExercisesAnswer) => {
-                exercisesAnswer.createdDate = exercisesAnswer.createdDate != null ? moment(exercisesAnswer.createdDate) : null;
-                exercisesAnswer.updatedDate = exercisesAnswer.updatedDate != null ? moment(exercisesAnswer.updatedDate) : null;
+                // exercisesAnswer.createdDate = exercisesAnswer.createdDate != null ? moment(exercisesAnswer.createdDate) : null;
+                // exercisesAnswer.updatedDate = exercisesAnswer.updatedDate != null ? moment(exercisesAnswer.updatedDate) : null;
             });
         }
         return res;

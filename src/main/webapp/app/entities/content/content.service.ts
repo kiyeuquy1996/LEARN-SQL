@@ -59,16 +59,16 @@ export class ContentService {
 
     protected convertDateFromClient(content: IContent): IContent {
         const copy: IContent = Object.assign({}, content, {
-            createdDate: content.createdDate != null && content.createdDate.isValid() ? content.createdDate.toJSON() : null,
-            updatedDate: content.updatedDate != null && content.updatedDate.isValid() ? content.updatedDate.toJSON() : null
+            // createdDate: content.createdDate != null && content.createdDate.isValid() ? content.createdDate.toJSON() : null,
+            // updatedDate: content.updatedDate != null && content.updatedDate.isValid() ? content.updatedDate.toJSON() : null
         });
         return copy;
     }
 
     protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
         if (res.body) {
-            res.body.createdDate = res.body.createdDate != null ? moment(res.body.createdDate) : null;
-            res.body.updatedDate = res.body.updatedDate != null ? moment(res.body.updatedDate) : null;
+            // res.body.createdDate = res.body.createdDate != null ? moment(res.body.createdDate) : null;
+            // res.body.updatedDate = res.body.updatedDate != null ? moment(res.body.updatedDate) : null;
         }
         return res;
     }
@@ -76,8 +76,8 @@ export class ContentService {
     protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
         if (res.body) {
             res.body.forEach((content: IContent) => {
-                content.createdDate = content.createdDate != null ? moment(content.createdDate) : null;
-                content.updatedDate = content.updatedDate != null ? moment(content.updatedDate) : null;
+                // content.createdDate = content.createdDate != null ? moment(content.createdDate) : null;
+                // content.updatedDate = content.updatedDate != null ? moment(content.updatedDate) : null;
             });
         }
         return res;

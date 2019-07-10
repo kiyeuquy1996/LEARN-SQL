@@ -13,6 +13,8 @@ public interface ContentMapper extends EntityMapper<ContentDTO, Content> {
 
     @Mapping(source = "category.id", target = "categoryId")
     @Mapping(source = "typeContent.id", target = "typeContentId")
+    @Mapping(source = "category.nameCategory", target = "categoryName")
+    @Mapping(source = "typeContent.nameTypeContent", target = "typeContentName")
     ContentDTO toDto(Content content);
 
     @Mapping(source = "categoryId", target = "category")

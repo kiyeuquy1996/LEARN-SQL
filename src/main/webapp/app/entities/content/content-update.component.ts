@@ -39,8 +39,8 @@ export class ContentUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ content }) => {
             this.content = content;
-            this.createdDate = this.content.createdDate != null ? this.content.createdDate.format(DATE_FORMAT) : null;
-            this.updatedDate = this.content.updatedDate != null ? this.content.updatedDate.format(DATE_FORMAT) : null;
+            // this.createdDate = this.content.createdDate != null ? this.content.createdDate.format(DATE_FORMAT) : null;
+            // this.updatedDate = this.content.updatedDate != null ? this.content.updatedDate.format(DATE_FORMAT) : null;
         });
         this.categoryService
             .query()
@@ -64,8 +64,8 @@ export class ContentUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
-        this.content.createdDate = this.createdDate != null ? moment(this.createdDate, DATE_FORMAT) : null;
-        this.content.updatedDate = this.updatedDate != null ? moment(this.updatedDate, DATE_FORMAT) : null;
+        // this.content.createdDate = this.createdDate != null ? moment(this.createdDate, DATE_FORMAT) : null;
+        // this.content.updatedDate = this.updatedDate != null ? moment(this.updatedDate, DATE_FORMAT) : null;
         if (this.content.id !== undefined) {
             this.subscribeToSaveResponse(this.contentService.update(this.content));
         } else {

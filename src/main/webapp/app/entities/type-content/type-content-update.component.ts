@@ -25,8 +25,8 @@ export class TypeContentUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({typeContent}) => {
             this.typeContent = typeContent;
-            this.createdDate = this.typeContent.createdDate != null ? this.typeContent.createdDate.format(DATE_FORMAT) : null;
-            this.updatedDate = this.typeContent.updatedDate != null ? this.typeContent.updatedDate.format(DATE_FORMAT) : null;
+            // this.createdDate = this.typeContent.createdDate != null ? this.typeContent.createdDate.format(DATE_FORMAT) : null;
+            // this.updatedDate = this.typeContent.updatedDate != null ? this.typeContent.updatedDate.format(DATE_FORMAT) : null;
         });
     }
 
@@ -36,8 +36,8 @@ export class TypeContentUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
-        this.typeContent.createdDate = this.createdDate != null ? moment(this.createdDate, DATE_FORMAT) : null;
-        this.typeContent.updatedDate = this.updatedDate != null ? moment(this.updatedDate, DATE_FORMAT) : null;
+        // this.typeContent.createdDate = this.createdDate != null ? moment(this.createdDate, DATE_FORMAT) : null;
+        // this.typeContent.updatedDate = this.updatedDate != null ? moment(this.updatedDate, DATE_FORMAT) : null;
         if (this.typeContent.id !== undefined) {
             this.subscribeToSaveResponse(this.typeContentService.update(this.typeContent));
         } else {

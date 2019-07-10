@@ -25,8 +25,8 @@ export class SQLQueryUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({sQLQuery}) => {
             this.sQLQuery = sQLQuery;
-            this.createdDate = this.sQLQuery.createdDate != null ? this.sQLQuery.createdDate.format(DATE_FORMAT) : null;
-            this.updatedDate = this.sQLQuery.updatedDate != null ? this.sQLQuery.updatedDate.format(DATE_FORMAT) : null;
+            // this.createdDate = this.sQLQuery.createdDate != null ? this.sQLQuery.createdDate.format(DATE_FORMAT) : null;
+            // this.updatedDate = this.sQLQuery.updatedDate != null ? this.sQLQuery.updatedDate.format(DATE_FORMAT) : null;
         });
     }
 
@@ -36,8 +36,8 @@ export class SQLQueryUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
-        this.sQLQuery.createdDate = this.createdDate != null ? moment(this.createdDate, DATE_FORMAT) : null;
-        this.sQLQuery.updatedDate = this.updatedDate != null ? moment(this.updatedDate, DATE_FORMAT) : null;
+        // this.sQLQuery.createdDate = this.createdDate != null ? moment(this.createdDate, DATE_FORMAT) : null;
+        // this.sQLQuery.updatedDate = this.updatedDate != null ? moment(this.updatedDate, DATE_FORMAT) : null;
         if (this.sQLQuery.id !== undefined) {
             this.subscribeToSaveResponse(this.sQLQueryService.update(this.sQLQuery));
         } else {

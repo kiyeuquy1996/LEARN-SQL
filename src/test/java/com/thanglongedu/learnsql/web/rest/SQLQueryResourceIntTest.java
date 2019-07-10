@@ -64,14 +64,14 @@ public class SQLQueryResourceIntTest {
     private static final Instant DEFAULT_CREATED_DATE = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_CREATED_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
-    private static final Integer DEFAULT_CREATED_BY = 1;
-    private static final Integer UPDATED_CREATED_BY = 2;
+    private static final String DEFAULT_CREATED_BY = "1";
+    private static final String UPDATED_CREATED_BY = "2";
 
     private static final Instant DEFAULT_UPDATED_DATE = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_UPDATED_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
-    private static final Integer DEFAULT_UPDATED_BY = 1;
-    private static final Integer UPDATED_UPDATED_BY = 2;
+    private static final String DEFAULT_UPDATED_BY = "1";
+    private static final String UPDATED_UPDATED_BY = "2";
 
     @Autowired
     private SQLQueryRepository sQLQueryRepository;
@@ -132,11 +132,11 @@ public class SQLQueryResourceIntTest {
             .title(DEFAULT_TITLE)
             .nameUrl(DEFAULT_NAME_URL)
             .query(DEFAULT_QUERY)
-            .description(DEFAULT_DESCRIPTION)
-            .createdDate(DEFAULT_CREATED_DATE)
-            .createdBy(DEFAULT_CREATED_BY)
-            .updatedDate(DEFAULT_UPDATED_DATE)
-            .updatedBy(DEFAULT_UPDATED_BY);
+            .description(DEFAULT_DESCRIPTION);
+//            .createdDate(DEFAULT_CREATED_DATE)
+//            .createdBy(DEFAULT_CREATED_BY)
+//            .updatedDate(DEFAULT_UPDATED_DATE)
+//            .updatedBy(DEFAULT_UPDATED_BY);
         return sQLQuery;
     }
 
@@ -167,8 +167,8 @@ public class SQLQueryResourceIntTest {
         assertThat(testSQLQuery.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testSQLQuery.getCreatedDate()).isEqualTo(DEFAULT_CREATED_DATE);
         assertThat(testSQLQuery.getCreatedBy()).isEqualTo(DEFAULT_CREATED_BY);
-        assertThat(testSQLQuery.getUpdatedDate()).isEqualTo(DEFAULT_UPDATED_DATE);
-        assertThat(testSQLQuery.getUpdatedBy()).isEqualTo(DEFAULT_UPDATED_BY);
+        assertThat(testSQLQuery.getLastModifiedDate()).isEqualTo(DEFAULT_UPDATED_DATE);
+        assertThat(testSQLQuery.getLastModifiedBy()).isEqualTo(DEFAULT_UPDATED_BY);
 
         // Validate the SQLQuery in Elasticsearch
         verify(mockSQLQuerySearchRepository, times(1)).save(testSQLQuery);
@@ -297,7 +297,7 @@ public class SQLQueryResourceIntTest {
     public void checkUpdatedDateIsRequired() throws Exception {
         int databaseSizeBeforeTest = sQLQueryRepository.findAll().size();
         // set the field null
-        sQLQuery.setUpdatedDate(null);
+        sQLQuery.setLastModifiedDate(null);
 
         // Create the SQLQuery, which fails.
         SQLQueryDTO sQLQueryDTO = sQLQueryMapper.toDto(sQLQuery);
@@ -316,7 +316,7 @@ public class SQLQueryResourceIntTest {
     public void checkUpdatedByIsRequired() throws Exception {
         int databaseSizeBeforeTest = sQLQueryRepository.findAll().size();
         // set the field null
-        sQLQuery.setUpdatedBy(null);
+        sQLQuery.setLastModifiedBy(null);
 
         // Create the SQLQuery, which fails.
         SQLQueryDTO sQLQueryDTO = sQLQueryMapper.toDto(sQLQuery);
@@ -396,11 +396,11 @@ public class SQLQueryResourceIntTest {
             .title(UPDATED_TITLE)
             .nameUrl(UPDATED_NAME_URL)
             .query(UPDATED_QUERY)
-            .description(UPDATED_DESCRIPTION)
-            .createdDate(UPDATED_CREATED_DATE)
-            .createdBy(UPDATED_CREATED_BY)
-            .updatedDate(UPDATED_UPDATED_DATE)
-            .updatedBy(UPDATED_UPDATED_BY);
+            .description(UPDATED_DESCRIPTION);
+//            .createdDate(UPDATED_CREATED_DATE)
+//            .createdBy(UPDATED_CREATED_BY)
+//            .updatedDate(UPDATED_UPDATED_DATE)
+//            .updatedBy(UPDATED_UPDATED_BY);
         SQLQueryDTO sQLQueryDTO = sQLQueryMapper.toDto(updatedSQLQuery);
 
         restSQLQueryMockMvc.perform(put("/api/sql-queries")
@@ -418,8 +418,8 @@ public class SQLQueryResourceIntTest {
         assertThat(testSQLQuery.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testSQLQuery.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
         assertThat(testSQLQuery.getCreatedBy()).isEqualTo(UPDATED_CREATED_BY);
-        assertThat(testSQLQuery.getUpdatedDate()).isEqualTo(UPDATED_UPDATED_DATE);
-        assertThat(testSQLQuery.getUpdatedBy()).isEqualTo(UPDATED_UPDATED_BY);
+        assertThat(testSQLQuery.getLastModifiedDate()).isEqualTo(UPDATED_UPDATED_DATE);
+        assertThat(testSQLQuery.getLastModifiedBy()).isEqualTo(UPDATED_UPDATED_BY);
 
         // Validate the SQLQuery in Elasticsearch
         verify(mockSQLQuerySearchRepository, times(1)).save(testSQLQuery);

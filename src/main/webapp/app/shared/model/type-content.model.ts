@@ -5,10 +5,10 @@ export interface ITypeContent {
     id?: number;
     nameTypeContent?: string;
     priority?: number;
-    createdDate?: Moment;
-    createdBy?: number;
-    updatedDate?: Moment;
-    updatedBy?: number;
+    createdBy?: string;
+    createdDate?: Date;
+    lastModifiedBy?: string;
+    lastModifiedDate?: Date;
     typeContentIDS?: IContent[];
 }
 
@@ -17,10 +17,10 @@ export class TypeContent implements ITypeContent {
         public id?: number,
         public nameTypeContent?: string,
         public priority?: number,
-        public createdDate?: Moment,
-        public createdBy?: number,
-        public updatedDate?: Moment,
-        public updatedBy?: number,
+        public createdBy?: string,
+        public createdDate?: Date,
+        public lastModifiedBy?: string,
+        public lastModifiedDate?: Date,
         public typeContentIDS?: IContent[]
     ) {}
 }

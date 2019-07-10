@@ -59,16 +59,16 @@ export class CategoryTypeService {
 
     protected convertDateFromClient(categoryType: ICategoryType): ICategoryType {
         const copy: ICategoryType = Object.assign({}, categoryType, {
-            createdDate: categoryType.createdDate != null && categoryType.createdDate.isValid() ? categoryType.createdDate.toJSON() : null,
-            updatedDate: categoryType.updatedDate != null && categoryType.updatedDate.isValid() ? categoryType.updatedDate.toJSON() : null
+            // createdDate: categoryType.createdDate != null && categoryType.createdDate.isValid() ? categoryType.createdDate.toJSON() : null,
+            // updatedDate: categoryType.updatedDate != null && categoryType.updatedDate.isValid() ? categoryType.updatedDate.toJSON() : null
         });
         return copy;
     }
 
     protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
         if (res.body) {
-            res.body.createdDate = res.body.createdDate != null ? moment(res.body.createdDate) : null;
-            res.body.updatedDate = res.body.updatedDate != null ? moment(res.body.updatedDate) : null;
+            // res.body.createdDate = res.body.createdDate != null ? moment(res.body.createdDate) : null;
+            // res.body.updatedDate = res.body.updatedDate != null ? moment(res.body.updatedDate) : null;
         }
         return res;
     }
@@ -76,8 +76,8 @@ export class CategoryTypeService {
     protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
         if (res.body) {
             res.body.forEach((categoryType: ICategoryType) => {
-                categoryType.createdDate = categoryType.createdDate != null ? moment(categoryType.createdDate) : null;
-                categoryType.updatedDate = categoryType.updatedDate != null ? moment(categoryType.updatedDate) : null;
+                // categoryType.createdDate = categoryType.createdDate != null ? moment(categoryType.createdDate) : null;
+                // categoryType.updatedDate = categoryType.updatedDate != null ? moment(categoryType.updatedDate) : null;
             });
         }
         return res;

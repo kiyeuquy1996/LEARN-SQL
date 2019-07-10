@@ -35,8 +35,8 @@ export class CategoryUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({category}) => {
             this.category = category;
-            this.createdDate = this.category.createdDate != null ? this.category.createdDate.format(DATE_FORMAT) : null;
-            this.updatedDate = this.category.updatedDate != null ? this.category.updatedDate.format(DATE_FORMAT) : null;
+            // this.createdDate = this.category.createdDate != null ? this.category.createdDate.format(DATE_FORMAT) : null;
+            // this.updatedDate = this.category.updatedDate != null ? this.category.updatedDate.format(DATE_FORMAT) : null;
         });
         this.categoryTypeService
             .query()
@@ -53,8 +53,8 @@ export class CategoryUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
-        this.category.createdDate = this.createdDate != null ? moment(this.createdDate, DATE_FORMAT) : null;
-        this.category.updatedDate = this.updatedDate != null ? moment(this.updatedDate, DATE_FORMAT) : null;
+        // this.category.createdDate = this.createdDate != null ? moment(this.createdDate, DATE_FORMAT) : null;
+        // this.category.updatedDate = this.updatedDate != null ? moment(this.updatedDate, DATE_FORMAT) : null;
         if (this.category.id !== undefined) {
             this.subscribeToSaveResponse(this.categoryService.update(this.category));
         } else {

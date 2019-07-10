@@ -67,14 +67,14 @@ public class CategoryResourceIntTest {
     private static final Instant DEFAULT_CREATED_DATE = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_CREATED_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
-    private static final Integer DEFAULT_CREATED_BY = 1;
-    private static final Integer UPDATED_CREATED_BY = 2;
+    private static final String DEFAULT_CREATED_BY = "1";
+    private static final String UPDATED_CREATED_BY = "2";
 
     private static final Instant DEFAULT_UPDATED_DATE = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_UPDATED_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
-    private static final Integer DEFAULT_UPDATED_BY = 1;
-    private static final Integer UPDATED_UPDATED_BY = 2;
+    private static final String DEFAULT_UPDATED_BY = "1";
+    private static final String UPDATED_UPDATED_BY = "2";
 
     @Autowired
     private CategoryRepository categoryRepository;
@@ -136,11 +136,11 @@ public class CategoryResourceIntTest {
             .title(DEFAULT_TITLE)
             .isKeyword(DEFAULT_IS_KEYWORD)
             .description(DEFAULT_DESCRIPTION)
-            .nameTableData(DEFAULT_NAME_TABLE_DATA)
-            .createdDate(DEFAULT_CREATED_DATE)
-            .createdBy(DEFAULT_CREATED_BY)
-            .updatedDate(DEFAULT_UPDATED_DATE)
-            .updatedBy(DEFAULT_UPDATED_BY);
+            .nameTableData(DEFAULT_NAME_TABLE_DATA);
+//            .createdDate(DEFAULT_CREATED_DATE)
+//            .createdBy(DEFAULT_CREATED_BY)
+//            .updatedDate(DEFAULT_UPDATED_DATE)
+//            .updatedBy(DEFAULT_UPDATED_BY);
         return category;
     }
 
@@ -172,8 +172,8 @@ public class CategoryResourceIntTest {
         assertThat(testCategory.getNameTableData()).isEqualTo(DEFAULT_NAME_TABLE_DATA);
         assertThat(testCategory.getCreatedDate()).isEqualTo(DEFAULT_CREATED_DATE);
         assertThat(testCategory.getCreatedBy()).isEqualTo(DEFAULT_CREATED_BY);
-        assertThat(testCategory.getUpdatedDate()).isEqualTo(DEFAULT_UPDATED_DATE);
-        assertThat(testCategory.getUpdatedBy()).isEqualTo(DEFAULT_UPDATED_BY);
+        assertThat(testCategory.getLastModifiedDate()).isEqualTo(DEFAULT_UPDATED_DATE);
+        assertThat(testCategory.getLastModifiedBy()).isEqualTo(DEFAULT_UPDATED_BY);
 
         // Validate the Category in Elasticsearch
         verify(mockCategorySearchRepository, times(1)).save(testCategory);
@@ -283,7 +283,7 @@ public class CategoryResourceIntTest {
     public void checkUpdatedDateIsRequired() throws Exception {
         int databaseSizeBeforeTest = categoryRepository.findAll().size();
         // set the field null
-        category.setUpdatedDate(null);
+        category.setLastModifiedDate(null);
 
         // Create the Category, which fails.
         CategoryDTO categoryDTO = categoryMapper.toDto(category);
@@ -302,7 +302,7 @@ public class CategoryResourceIntTest {
     public void checkUpdatedByIsRequired() throws Exception {
         int databaseSizeBeforeTest = categoryRepository.findAll().size();
         // set the field null
-        category.setUpdatedBy(null);
+        category.setLastModifiedBy(null);
 
         // Create the Category, which fails.
         CategoryDTO categoryDTO = categoryMapper.toDto(category);
@@ -385,11 +385,11 @@ public class CategoryResourceIntTest {
             .title(UPDATED_TITLE)
             .isKeyword(UPDATED_IS_KEYWORD)
             .description(UPDATED_DESCRIPTION)
-            .nameTableData(UPDATED_NAME_TABLE_DATA)
-            .createdDate(UPDATED_CREATED_DATE)
-            .createdBy(UPDATED_CREATED_BY)
-            .updatedDate(UPDATED_UPDATED_DATE)
-            .updatedBy(UPDATED_UPDATED_BY);
+            .nameTableData(UPDATED_NAME_TABLE_DATA);
+//            .createdDate(UPDATED_CREATED_DATE)
+//            .createdBy(UPDATED_CREATED_BY)
+//            .updatedDate(UPDATED_UPDATED_DATE)
+//            .updatedBy(UPDATED_UPDATED_BY);
         CategoryDTO categoryDTO = categoryMapper.toDto(updatedCategory);
 
         restCategoryMockMvc.perform(put("/api/categories")
@@ -408,8 +408,8 @@ public class CategoryResourceIntTest {
         assertThat(testCategory.getNameTableData()).isEqualTo(UPDATED_NAME_TABLE_DATA);
         assertThat(testCategory.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
         assertThat(testCategory.getCreatedBy()).isEqualTo(UPDATED_CREATED_BY);
-        assertThat(testCategory.getUpdatedDate()).isEqualTo(UPDATED_UPDATED_DATE);
-        assertThat(testCategory.getUpdatedBy()).isEqualTo(UPDATED_UPDATED_BY);
+        assertThat(testCategory.getLastModifiedDate()).isEqualTo(UPDATED_UPDATED_DATE);
+        assertThat(testCategory.getLastModifiedBy()).isEqualTo(UPDATED_UPDATED_BY);
 
         // Validate the Category in Elasticsearch
         verify(mockCategorySearchRepository, times(1)).save(testCategory);

@@ -16,6 +16,7 @@ public class TryItResource {
 
     @PostMapping("/try-it")
     public List<ArrayTryItDTO> dataQuery(@RequestBody TryItQueryDTO tryItQueryDTO) {
+        List<ArrayTryItDTO> list = new ArrayList<>();
         try {
             Class.forName("com.mysql.jdbc.Driver");
 
@@ -33,13 +34,12 @@ public class TryItResource {
             //query
             ResultSet result = null;
 
-            List<ArrayTryItDTO> list = new ArrayList<>();
-
             boolean hasMoreResultSets = stm.execute(tryItQueryDTO.getQuery());
 
-            READING_QUERY_RESULTS: // label
-            while ( hasMoreResultSets || stm.getUpdateCount() != -1 ) {
-                if ( hasMoreResultSets ) {
+            READING_QUERY_RESULTS:
+            // label
+            while (hasMoreResultSets || stm.getUpdateCount() != -1) {
+                if (hasMoreResultSets) {
                     ArrayTryItDTO arrayTryItDTO = new ArrayTryItDTO();
 
                     result = stm.getResultSet();
@@ -69,19 +69,21 @@ public class TryItResource {
                     }
                     arrayTryItDTO.setRow(rows);
                     arrayTryItDTO.setUpdateCount(0);
+                    arrayTryItDTO.setMess("");
                     list.add(arrayTryItDTO);
 
                     // handle your rs here
                 } // if has rs
                 else { // if ddl/dml/...
                     int queryResult = stm.getUpdateCount();
-                    if ( queryResult == -1 ) { // no more queries processed
+                    if (queryResult == -1) { // no more queries processed
                         break READING_QUERY_RESULTS;
                     } // no more queries processed
                     // handle success, failure, generated keys, etc here
                     ArrayTryItDTO arrayTryItDTO = new ArrayTryItDTO();
                     arrayTryItDTO.setRow(new ArrayList<>());
                     arrayTryItDTO.setUpdateCount(stm.getUpdateCount());
+                    arrayTryItDTO.setMess("");
                     list.add(arrayTryItDTO);
                 } // if ddl/dml/...
 
@@ -89,20 +91,17 @@ public class TryItResource {
                 hasMoreResultSets = stm.getMoreResults();
             } // while results
 
-//            stm.getUpdateCount()
-
-//            if (hasMoreResultSets)
-//                result = stm.getResultSet();
-//            else
-//                return new ArrayList<>();
-
-            //close statement
             stm.close();
 
             return list;
         } catch (Exception ex) {
             System.out.print(ex.getMessage());
-            return new ArrayList<>();
+            ArrayTryItDTO arrayTryItDTO = new ArrayTryItDTO();
+            arrayTryItDTO.setRow(new ArrayList<>());
+            arrayTryItDTO.setUpdateCount(0);
+            arrayTryItDTO.setMess(ex.getMessage());
+            list.add(arrayTryItDTO);
+            return list;
         }
     }
 
@@ -123,25 +122,128 @@ public class TryItResource {
             Statement stm = null;
             stm = conn.createStatement();
 
-            String nametable[] = tryItQueryDTO.getQuery().split(" ", 3);
-            String params = nametable[2];
+            String nametable[] = tryItQueryDTO.getQuery().split(" ", 4);
+            System.out.println("tryItQueryDTO: ==================================");
+            for (String x : nametable) {
+                System.out.println(x);
+            }
 
+            System.out.println("tryItQueryDTO: ==================================");
+            String params = nametable[2];
+            System.out.println(params);
             //query
             ResultSet result = null;
 
             stm.executeUpdate(tryItQueryDTO.getQuery());
 
-            String sql = "INSERT INTO dbtest (name)" +
-                "VALUES (params)";
+            String sql = "INSERT INTO dbtest (name) VALUES (\'" + params + "\');";
+            System.out.println("sql:" + sql);
             stm.executeUpdate(sql);
 
             stm.close();
 
-            restoreDTO.setRestore("Success");
+            restoreDTO.setRestore("Create a successful table.");
             return restoreDTO;
         } catch (Exception ex) {
             System.out.print(ex.getMessage());
-            restoreDTO.setRestore("Fail");
+            restoreDTO.setRestore(ex.getMessage());
+            return restoreDTO;
+        }
+    }
+
+    @PostMapping("/loadTable")
+    public List<RestoreDTO> loadTable() {
+        List<RestoreDTO> list = new ArrayList<>();
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+
+            String PASSWORD = "123456aA@";
+            String USER_NAME = "root";
+            String DB_URL = "jdbc:mysql://localhost:3306/LearnSQL?allowMultiQueries=true&?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC";
+            // String DB_URL = "jdbc:mysql://localhost:3306/LearnSQL";
+            Connection conn = DriverManager.getConnection(DB_URL,
+                USER_NAME, PASSWORD);
+
+            // create statement
+            Statement stm = null;
+            stm = conn.createStatement();
+
+            Statement statement2 = conn.createStatement();
+
+            ResultSet result = null;
+
+            String sql = "SELECT name FROM dbtest";
+            stm.execute(sql);
+            result = stm.getResultSet();
+            while (result.next()) {
+                RestoreDTO restoreDTO = new RestoreDTO();
+                restoreDTO.setRestore(result.getString("name"));
+
+                String countNumber = "SELECT count(*) FROM " + result.getString("name");
+                statement2.execute(countNumber);
+                ResultSet resultSet2 = statement2.getResultSet();
+                while (resultSet2.next()) {
+                    restoreDTO.setNumberRow(resultSet2.getInt(1));
+                }
+                list.add(restoreDTO);
+            }
+            statement2.close();
+            stm.close();
+            return list;
+        } catch (Exception ex) {
+            System.out.print(ex.getMessage());
+            RestoreDTO restoreDTO = new RestoreDTO();
+            restoreDTO.setRestore(ex.getMessage());
+            restoreDTO.setNumberRow(0);
+            list.add(restoreDTO);
+            return list;
+        }
+    }
+
+    @PostMapping("/delete-table")
+    public RestoreDTO deleteTableName() {
+        RestoreDTO restoreDTO = new RestoreDTO();
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+
+            String PASSWORD = "123456aA@";
+            String USER_NAME = "root";
+            String DB_URL = "jdbc:mysql://localhost:3306/LearnSQL?allowMultiQueries=true&?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC";
+            // String DB_URL = "jdbc:mysql://localhost:3306/LearnSQL";
+            Connection conn = DriverManager.getConnection(DB_URL,
+                USER_NAME, PASSWORD);
+
+            // create statement
+            Statement stm = null;
+            stm = conn.createStatement();
+
+            //query
+            ResultSet result = null;
+
+            List<String> list = new ArrayList<>();
+
+            String dropTbl = "SELECT name FROM dbtest";
+            stm.execute(dropTbl);
+            result = stm.getResultSet();
+            while (result.next()) {
+                list.add(result.getString("name"));
+            }
+
+            for (String x : list) {
+                String delDatabase = "DROP TABLE " + x;
+                stm.executeUpdate(delDatabase);
+            }
+
+            String sql = "DELETE FROM dbtest";
+            stm.executeUpdate(sql);
+
+            stm.close();
+
+            restoreDTO.setRestore("Delete Success");
+            return restoreDTO;
+        } catch (Exception ex) {
+            System.out.print(ex.getMessage());
+            restoreDTO.setRestore("Delete Fail");
             return restoreDTO;
         }
     }
@@ -335,11 +437,11 @@ public class TryItResource {
             stm.executeUpdate(orders);
 
             stm.close();
-            restoreDTO.setRestore("Success");
+            restoreDTO.setRestore("Restore Success");
             return restoreDTO;
         } catch (Exception ex) {
             ex.printStackTrace();
-            restoreDTO.setRestore("Fail");
+            restoreDTO.setRestore("Restore Fail");
             return restoreDTO;
         }
     }

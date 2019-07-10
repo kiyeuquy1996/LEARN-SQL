@@ -58,14 +58,14 @@ public class TypeContentResourceIntTest {
     private static final Instant DEFAULT_CREATED_DATE = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_CREATED_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
-    private static final Integer DEFAULT_CREATED_BY = 1;
-    private static final Integer UPDATED_CREATED_BY = 2;
+    private static final String DEFAULT_CREATED_BY = "1";
+    private static final String UPDATED_CREATED_BY = "2";
 
     private static final Instant DEFAULT_UPDATED_DATE = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_UPDATED_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
-    private static final Integer DEFAULT_UPDATED_BY = 1;
-    private static final Integer UPDATED_UPDATED_BY = 2;
+    private static final String DEFAULT_UPDATED_BY = "1";
+    private static final String UPDATED_UPDATED_BY = "2";
 
     @Autowired
     private TypeContentRepository typeContentRepository;
@@ -124,11 +124,11 @@ public class TypeContentResourceIntTest {
     public static TypeContent createEntity(EntityManager em) {
         TypeContent typeContent = new TypeContent()
             .nameTypeContent(DEFAULT_NAME_TYPE_CONTENT)
-            .priority(DEFAULT_PRIORITY)
-            .createdDate(DEFAULT_CREATED_DATE)
-            .createdBy(DEFAULT_CREATED_BY)
-            .updatedDate(DEFAULT_UPDATED_DATE)
-            .updatedBy(DEFAULT_UPDATED_BY);
+            .priority(DEFAULT_PRIORITY);
+//            .createdDate(DEFAULT_CREATED_DATE)
+//            .createdBy(DEFAULT_CREATED_BY)
+//            .updatedDate(DEFAULT_UPDATED_DATE)
+//            .updatedBy(DEFAULT_UPDATED_BY);
         return typeContent;
     }
 
@@ -157,8 +157,8 @@ public class TypeContentResourceIntTest {
         assertThat(testTypeContent.getPriority()).isEqualTo(DEFAULT_PRIORITY);
         assertThat(testTypeContent.getCreatedDate()).isEqualTo(DEFAULT_CREATED_DATE);
         assertThat(testTypeContent.getCreatedBy()).isEqualTo(DEFAULT_CREATED_BY);
-        assertThat(testTypeContent.getUpdatedDate()).isEqualTo(DEFAULT_UPDATED_DATE);
-        assertThat(testTypeContent.getUpdatedBy()).isEqualTo(DEFAULT_UPDATED_BY);
+        assertThat(testTypeContent.getLastModifiedDate()).isEqualTo(DEFAULT_UPDATED_DATE);
+        assertThat(testTypeContent.getLastModifiedBy()).isEqualTo(DEFAULT_UPDATED_BY);
 
         // Validate the TypeContent in Elasticsearch
         verify(mockTypeContentSearchRepository, times(1)).save(testTypeContent);
@@ -268,7 +268,7 @@ public class TypeContentResourceIntTest {
     public void checkUpdatedDateIsRequired() throws Exception {
         int databaseSizeBeforeTest = typeContentRepository.findAll().size();
         // set the field null
-        typeContent.setUpdatedDate(null);
+        typeContent.setLastModifiedDate(null);
 
         // Create the TypeContent, which fails.
         TypeContentDTO typeContentDTO = typeContentMapper.toDto(typeContent);
@@ -287,7 +287,7 @@ public class TypeContentResourceIntTest {
     public void checkUpdatedByIsRequired() throws Exception {
         int databaseSizeBeforeTest = typeContentRepository.findAll().size();
         // set the field null
-        typeContent.setUpdatedBy(null);
+        typeContent.setLastModifiedBy(null);
 
         // Create the TypeContent, which fails.
         TypeContentDTO typeContentDTO = typeContentMapper.toDto(typeContent);
@@ -361,11 +361,11 @@ public class TypeContentResourceIntTest {
         em.detach(updatedTypeContent);
         updatedTypeContent
             .nameTypeContent(UPDATED_NAME_TYPE_CONTENT)
-            .priority(UPDATED_PRIORITY)
-            .createdDate(UPDATED_CREATED_DATE)
-            .createdBy(UPDATED_CREATED_BY)
-            .updatedDate(UPDATED_UPDATED_DATE)
-            .updatedBy(UPDATED_UPDATED_BY);
+            .priority(UPDATED_PRIORITY);
+//            .createdDate(UPDATED_CREATED_DATE)
+//            .createdBy(UPDATED_CREATED_BY)
+//            .updatedDate(UPDATED_UPDATED_DATE)
+//            .updatedBy(UPDATED_UPDATED_BY);
         TypeContentDTO typeContentDTO = typeContentMapper.toDto(updatedTypeContent);
 
         restTypeContentMockMvc.perform(put("/api/type-contents")
@@ -381,8 +381,8 @@ public class TypeContentResourceIntTest {
         assertThat(testTypeContent.getPriority()).isEqualTo(UPDATED_PRIORITY);
         assertThat(testTypeContent.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
         assertThat(testTypeContent.getCreatedBy()).isEqualTo(UPDATED_CREATED_BY);
-        assertThat(testTypeContent.getUpdatedDate()).isEqualTo(UPDATED_UPDATED_DATE);
-        assertThat(testTypeContent.getUpdatedBy()).isEqualTo(UPDATED_UPDATED_BY);
+        assertThat(testTypeContent.getLastModifiedDate()).isEqualTo(UPDATED_UPDATED_DATE);
+        assertThat(testTypeContent.getLastModifiedBy()).isEqualTo(UPDATED_UPDATED_BY);
 
         // Validate the TypeContent in Elasticsearch
         verify(mockTypeContentSearchRepository, times(1)).save(testTypeContent);

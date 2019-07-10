@@ -4,12 +4,14 @@ export interface IContent {
     id?: number;
     title?: string;
     content?: string;
-    createdDate?: Moment;
-    createdBy?: number;
-    updatedDate?: Moment;
-    updatedBy?: number;
+    createdBy?: string;
+    createdDate?: Date;
+    lastModifiedBy?: string;
+    lastModifiedDate?: Date;
     categoryId?: number;
     typeContentId?: number;
+    categoryName?: String;
+    typeContentName?: String;
 }
 
 export class Content implements IContent {
@@ -17,11 +19,13 @@ export class Content implements IContent {
         public id?: number,
         public title?: string,
         public content?: string,
-        public createdDate?: Moment,
-        public createdBy?: number,
-        public updatedDate?: Moment,
-        public updatedBy?: number,
+        public createdBy?: string,
+        public createdDate?: Date,
+        public lastModifiedBy?: string,
+        public lastModifiedDate?: Date,
         public categoryId?: number,
-        public typeContentId?: number
+        public typeContentId?: number,
+        public categoryName?: String,
+        public typeContentName?: String
     ) {}
 }

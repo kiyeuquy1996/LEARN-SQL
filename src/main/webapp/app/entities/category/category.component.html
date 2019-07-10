@@ -61,11 +61,11 @@
             <th><span jhiTranslate="learnSqlApp.category.isKeyword">Is Keyword</span></th>
             <th><span jhiTranslate="learnSqlApp.category.description">Description</span></th>
             <th><span jhiTranslate="learnSqlApp.category.nameTableData">Name Table Data</span></th>
-            <th><span jhiTranslate="learnSqlApp.category.createdDate">Created Date</span></th>
-            <th><span jhiTranslate="learnSqlApp.category.createdBy">Created By</span></th>
-            <th><span jhiTranslate="learnSqlApp.category.updatedDate">Updated Date</span></th>
-            <th><span jhiTranslate="learnSqlApp.category.updatedBy">Updated By</span></th>
-            <th><span jhiTranslate="learnSqlApp.category.categoryType">Category Type</span></th>
+<!--            <th><span jhiTranslate="learnSqlApp.category.createdDate">Created Date</span></th>-->
+<!--            <th><span jhiTranslate="learnSqlApp.category.createdBy">Created By</span></th>-->
+<!--            <th><span jhiTranslate="learnSqlApp.category.updatedDate">Updated Date</span></th>-->
+<!--            <th><span jhiTranslate="learnSqlApp.category.updatedBy">Updated By</span></th>-->
+            <th><span jhiTranslate="learnSqlApp.category.categoryType">Category Name</span></th>
             <th></th>
             </tr>
             </thead>
@@ -77,13 +77,13 @@
                 <td>{{category.isKeyword}}</td>
                 <td>{{category.description}}</td>
                 <td>{{category.nameTableData}}</td>
-                <td>{{category.createdDate | date:'medium'}}</td>
-                <td>{{category.createdBy}}</td>
-                <td>{{category.updatedDate | date:'medium'}}</td>
-                <td>{{category.updatedBy}}</td>
+<!--                <td>{{category.createdDate | date:'medium'}}</td>-->
+<!--                <td>{{category.createdBy}}</td>-->
+<!--                <td>{{category.updatedDate | date:'medium'}}</td>-->
+<!--                <td>{{category.updatedBy}}</td>-->
                 <td>
                     <div *ngIf="category.categoryTypeId">
-                        <a [routerLink]="['../category-type', category.categoryTypeId , 'view' ]" >{{category.categoryTypeId}}</a>
+                        <a [routerLink]="['../category-type', category.categoryTypeId , 'view' ]" >{{category.categoryTypeName}}</a>
                     </div>
                 </td>
                 <td class="text-right">

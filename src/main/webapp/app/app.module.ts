@@ -32,12 +32,13 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {MDBBootstrapModule} from 'angular-bootstrap-md';
 import {NavigationComponent} from 'app/layouts/navbar/navigation.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatTreeModule, MatIconModule, MatButtonModule} from '@angular/material';
+import {MatTreeModule, MatIconModule, MatButtonModule, MatTabsModule} from '@angular/material';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {DataService} from 'app/layouts/data.service';
 import {LearnSqlTryItModule} from 'app/tryits/tryits.module';
 import {LearnSqlDashBoardModule} from 'app/dashboard';
 import {FilterPipe} from 'app/layouts/safe-pipe';
+import {SamplequeryModule} from 'app/samplequery/samplequery.module';
 
 @NgModule({
     imports: [
@@ -55,6 +56,7 @@ import {FilterPipe} from 'app/layouts/safe-pipe';
         LearnSqlCoreModule,
         LearnSqlHomeModule,
         LearnSqlTryItModule,
+        SamplequeryModule,
         LearnSqlDashBoardModule,
         LearnSqlAccountModule,
         // jhipster-needle-angular-add-module JHipster will add new module here
@@ -62,7 +64,7 @@ import {FilterPipe} from 'app/layouts/safe-pipe';
         LearnSqlEntityModule,
         LearnSqlAppRoutingModule,
         MDBBootstrapModule.forRoot(),
-        MatTreeModule, MatIconModule, MatButtonModule
+        MatTreeModule, MatIconModule, MatButtonModule, MatTabsModule
     ],
     declarations: [
         FilterPipe,

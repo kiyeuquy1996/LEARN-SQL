@@ -59,16 +59,16 @@ export class TypeContentService {
 
     protected convertDateFromClient(typeContent: ITypeContent): ITypeContent {
         const copy: ITypeContent = Object.assign({}, typeContent, {
-            createdDate: typeContent.createdDate != null && typeContent.createdDate.isValid() ? typeContent.createdDate.toJSON() : null,
-            updatedDate: typeContent.updatedDate != null && typeContent.updatedDate.isValid() ? typeContent.updatedDate.toJSON() : null
+            // createdDate: typeContent.createdDate != null && typeContent.createdDate.isValid() ? typeContent.createdDate.toJSON() : null,
+            // updatedDate: typeContent.updatedDate != null && typeContent.updatedDate.isValid() ? typeContent.updatedDate.toJSON() : null
         });
         return copy;
     }
 
     protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
         if (res.body) {
-            res.body.createdDate = res.body.createdDate != null ? moment(res.body.createdDate) : null;
-            res.body.updatedDate = res.body.updatedDate != null ? moment(res.body.updatedDate) : null;
+            // res.body.createdDate = res.body.createdDate != null ? moment(res.body.createdDate) : null;
+            // res.body.updatedDate = res.body.updatedDate != null ? moment(res.body.updatedDate) : null;
         }
         return res;
     }
@@ -76,8 +76,8 @@ export class TypeContentService {
     protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
         if (res.body) {
             res.body.forEach((typeContent: ITypeContent) => {
-                typeContent.createdDate = typeContent.createdDate != null ? moment(typeContent.createdDate) : null;
-                typeContent.updatedDate = typeContent.updatedDate != null ? moment(typeContent.updatedDate) : null;
+                // typeContent.createdDate = typeContent.createdDate != null ? moment(typeContent.createdDate) : null;
+                // typeContent.updatedDate = typeContent.updatedDate != null ? moment(typeContent.updatedDate) : null;
             });
         }
         return res;

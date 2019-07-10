@@ -35,8 +35,8 @@ export class ExercisesAnswerUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({exercisesAnswer}) => {
             this.exercisesAnswer = exercisesAnswer;
-            this.createdDate = this.exercisesAnswer.createdDate != null ? this.exercisesAnswer.createdDate.format(DATE_FORMAT) : null;
-            this.updatedDate = this.exercisesAnswer.updatedDate != null ? this.exercisesAnswer.updatedDate.format(DATE_FORMAT) : null;
+            // this.createdDate = this.exercisesAnswer.createdDate != null ? this.exercisesAnswer.createdDate.format(DATE_FORMAT) : null;
+            // this.updatedDate = this.exercisesAnswer.updatedDate != null ? this.exercisesAnswer.updatedDate.format(DATE_FORMAT) : null;
         });
         this.exercisesService
             .query()
@@ -53,8 +53,8 @@ export class ExercisesAnswerUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
-        this.exercisesAnswer.createdDate = this.createdDate != null ? moment(this.createdDate, DATE_FORMAT) : null;
-        this.exercisesAnswer.updatedDate = this.updatedDate != null ? moment(this.updatedDate, DATE_FORMAT) : null;
+        // this.exercisesAnswer.createdDate = this.createdDate != null ? moment(this.createdDate, DATE_FORMAT) : null;
+        // this.exercisesAnswer.updatedDate = this.updatedDate != null ? moment(this.updatedDate, DATE_FORMAT) : null;
         if (this.exercisesAnswer.id !== undefined) {
             this.subscribeToSaveResponse(this.exercisesAnswerService.update(this.exercisesAnswer));
         } else {

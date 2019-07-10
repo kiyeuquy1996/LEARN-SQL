@@ -7,11 +7,12 @@ export interface IExercises {
     question?: string;
     score?: number;
     timeOnMinutes?: number;
-    createdDate?: Moment;
-    createdBy?: number;
-    updatedDate?: Moment;
-    updatedBy?: number;
+    createdBy?: string;
+    createdDate?: Date;
+    lastModifiedBy?: string;
+    lastModifiedDate?: Date;
     categoryId?: number;
+    categoryName?: string;
     exercisesIDS?: IExercisesAnswer[];
 }
 
@@ -22,11 +23,12 @@ export class Exercises implements IExercises {
         public question?: string,
         public score?: number,
         public timeOnMinutes?: number,
-        public createdDate?: Moment,
-        public createdBy?: number,
-        public updatedDate?: Moment,
-        public updatedBy?: number,
+        public createdBy?: string,
+        public createdDate?: Date,
+        public lastModifiedBy?: string,
+        public lastModifiedDate?: Date,
         public categoryId?: number,
+        public categoryName?: string,
         public exercisesIDS?: IExercisesAnswer[]
     ) {}
 }

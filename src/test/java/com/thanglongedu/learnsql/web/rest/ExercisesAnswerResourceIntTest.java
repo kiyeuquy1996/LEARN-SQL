@@ -58,14 +58,14 @@ public class ExercisesAnswerResourceIntTest {
     private static final Instant DEFAULT_CREATED_DATE = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_CREATED_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
-    private static final Integer DEFAULT_CREATED_BY = 1;
-    private static final Integer UPDATED_CREATED_BY = 2;
+    private static final String DEFAULT_CREATED_BY = "1";
+    private static final String UPDATED_CREATED_BY = "2";
 
     private static final Instant DEFAULT_UPDATED_DATE = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_UPDATED_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
-    private static final Integer DEFAULT_UPDATED_BY = 1;
-    private static final Integer UPDATED_UPDATED_BY = 2;
+    private static final String DEFAULT_UPDATED_BY = "1";
+    private static final String UPDATED_UPDATED_BY = "2";
 
     @Autowired
     private ExercisesAnswerRepository exercisesAnswerRepository;
@@ -124,11 +124,11 @@ public class ExercisesAnswerResourceIntTest {
     public static ExercisesAnswer createEntity(EntityManager em) {
         ExercisesAnswer exercisesAnswer = new ExercisesAnswer()
             .result(DEFAULT_RESULT)
-            .isCorrect(DEFAULT_IS_CORRECT)
-            .createdDate(DEFAULT_CREATED_DATE)
-            .createdBy(DEFAULT_CREATED_BY)
-            .updatedDate(DEFAULT_UPDATED_DATE)
-            .updatedBy(DEFAULT_UPDATED_BY);
+            .isCorrect(DEFAULT_IS_CORRECT);
+//            .createdDate(DEFAULT_CREATED_DATE)
+//            .createdBy(DEFAULT_CREATED_BY)
+//            .updatedDate(DEFAULT_UPDATED_DATE)
+//            .updatedBy(DEFAULT_UPDATED_BY);
         return exercisesAnswer;
     }
 
@@ -157,8 +157,8 @@ public class ExercisesAnswerResourceIntTest {
         assertThat(testExercisesAnswer.isIsCorrect()).isEqualTo(DEFAULT_IS_CORRECT);
         assertThat(testExercisesAnswer.getCreatedDate()).isEqualTo(DEFAULT_CREATED_DATE);
         assertThat(testExercisesAnswer.getCreatedBy()).isEqualTo(DEFAULT_CREATED_BY);
-        assertThat(testExercisesAnswer.getUpdatedDate()).isEqualTo(DEFAULT_UPDATED_DATE);
-        assertThat(testExercisesAnswer.getUpdatedBy()).isEqualTo(DEFAULT_UPDATED_BY);
+        assertThat(testExercisesAnswer.getLastModifiedDate()).isEqualTo(DEFAULT_UPDATED_DATE);
+        assertThat(testExercisesAnswer.getLastModifiedBy()).isEqualTo(DEFAULT_UPDATED_BY);
 
         // Validate the ExercisesAnswer in Elasticsearch
         verify(mockExercisesAnswerSearchRepository, times(1)).save(testExercisesAnswer);
@@ -249,7 +249,7 @@ public class ExercisesAnswerResourceIntTest {
     public void checkUpdatedDateIsRequired() throws Exception {
         int databaseSizeBeforeTest = exercisesAnswerRepository.findAll().size();
         // set the field null
-        exercisesAnswer.setUpdatedDate(null);
+        exercisesAnswer.setLastModifiedDate(null);
 
         // Create the ExercisesAnswer, which fails.
         ExercisesAnswerDTO exercisesAnswerDTO = exercisesAnswerMapper.toDto(exercisesAnswer);
@@ -268,7 +268,7 @@ public class ExercisesAnswerResourceIntTest {
     public void checkUpdatedByIsRequired() throws Exception {
         int databaseSizeBeforeTest = exercisesAnswerRepository.findAll().size();
         // set the field null
-        exercisesAnswer.setUpdatedBy(null);
+        exercisesAnswer.setLastModifiedBy(null);
 
         // Create the ExercisesAnswer, which fails.
         ExercisesAnswerDTO exercisesAnswerDTO = exercisesAnswerMapper.toDto(exercisesAnswer);
@@ -342,11 +342,11 @@ public class ExercisesAnswerResourceIntTest {
         em.detach(updatedExercisesAnswer);
         updatedExercisesAnswer
             .result(UPDATED_RESULT)
-            .isCorrect(UPDATED_IS_CORRECT)
-            .createdDate(UPDATED_CREATED_DATE)
-            .createdBy(UPDATED_CREATED_BY)
-            .updatedDate(UPDATED_UPDATED_DATE)
-            .updatedBy(UPDATED_UPDATED_BY);
+            .isCorrect(UPDATED_IS_CORRECT);
+//            .createdDate(UPDATED_CREATED_DATE)
+//            .createdBy(UPDATED_CREATED_BY)
+//            .updatedDate(UPDATED_UPDATED_DATE)
+//            .updatedBy(UPDATED_UPDATED_BY);
         ExercisesAnswerDTO exercisesAnswerDTO = exercisesAnswerMapper.toDto(updatedExercisesAnswer);
 
         restExercisesAnswerMockMvc.perform(put("/api/exercises-answers")
@@ -362,8 +362,8 @@ public class ExercisesAnswerResourceIntTest {
         assertThat(testExercisesAnswer.isIsCorrect()).isEqualTo(UPDATED_IS_CORRECT);
         assertThat(testExercisesAnswer.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
         assertThat(testExercisesAnswer.getCreatedBy()).isEqualTo(UPDATED_CREATED_BY);
-        assertThat(testExercisesAnswer.getUpdatedDate()).isEqualTo(UPDATED_UPDATED_DATE);
-        assertThat(testExercisesAnswer.getUpdatedBy()).isEqualTo(UPDATED_UPDATED_BY);
+        assertThat(testExercisesAnswer.getLastModifiedDate()).isEqualTo(UPDATED_UPDATED_DATE);
+        assertThat(testExercisesAnswer.getLastModifiedBy()).isEqualTo(UPDATED_UPDATED_BY);
 
         // Validate the ExercisesAnswer in Elasticsearch
         verify(mockExercisesAnswerSearchRepository, times(1)).save(testExercisesAnswer);

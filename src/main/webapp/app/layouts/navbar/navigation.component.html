@@ -114,59 +114,37 @@
                 </div>
             </a>
 
-<!--            <a routerLink="orders"-->
-<!--               routerLinkActive="active"-->
-<!--               class="list-group-item list-group-item-action waves-effect">-->
-<!--                <i class="fas fa-code"></i>-->
-<!--                <span jhiTranslate="global.menu.entities.orders">Orders</span>-->
-<!--            </a>-->
+            <!--            <a routerLink="orders"-->
+            <!--               routerLinkActive="active"-->
+            <!--               class="list-group-item list-group-item-action waves-effect">-->
+            <!--                <i class="fas fa-code"></i>-->
+            <!--                <span jhiTranslate="global.menu.entities.orders">Orders</span>-->
+            <!--            </a>-->
 
-<!--            <a routerLink="customer"-->
-<!--               routerLinkActive="active"-->
-<!--               class="list-group-item list-group-item-action waves-effect">-->
-<!--                <i class="fas fa-code"></i>-->
-<!--                <span jhiTranslate="global.menu.entities.customer">Customer</span>-->
-<!--            </a>-->
+            <!--            <a routerLink="customer"-->
+            <!--               routerLinkActive="active"-->
+            <!--               class="list-group-item list-group-item-action waves-effect">-->
+            <!--                <i class="fas fa-code"></i>-->
+            <!--                <span jhiTranslate="global.menu.entities.customer">Customer</span>-->
+            <!--            </a>-->
 
-<!--            <a routerLink="employees"-->
-<!--               routerLinkActive="active"-->
-<!--               class="list-group-item list-group-item-action waves-effect">-->
-<!--                <i class="fas fa-code"></i>-->
-<!--                <span jhiTranslate="global.menu.entities.employees">Employees</span>-->
-<!--            </a>-->
+            <!--            <a routerLink="employees"-->
+            <!--               routerLinkActive="active"-->
+            <!--               class="list-group-item list-group-item-action waves-effect">-->
+            <!--                <i class="fas fa-code"></i>-->
+            <!--                <span jhiTranslate="global.menu.entities.employees">Employees</span>-->
+            <!--            </a>-->
 
-<!--            <a routerLink="shipper"-->
-<!--               routerLinkActive="active"-->
-<!--               class="list-group-item list-group-item-action waves-effect">-->
-<!--                <i class="fas fa-code"></i>-->
-<!--                <span jhiTranslate="global.menu.entities.shipper">Shipper</span>-->
-<!--            </a>-->
+            <!--            <a routerLink="shipper"-->
+            <!--               routerLinkActive="active"-->
+            <!--               class="list-group-item list-group-item-action waves-effect">-->
+            <!--                <i class="fas fa-code"></i>-->
+            <!--                <span jhiTranslate="global.menu.entities.shipper">Shipper</span>-->
+            <!--            </a>-->
 
         </div>
 
         <div class="list-group list-group-flush force-overflow" *ngSwitchCase="false">
-            <!--<mat-tree [dataSource]="dataSource" [treeControl]="treeControl">-->
-                <!--&lt;!&ndash; This is the tree node template for leaf nodes &ndash;&gt;-->
-                <!--<mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>-->
-                    <!--<button mat-button-->
-                            <!--(click)="changeNode(node.id)"-->
-                            <!--class="waves-effect"-->
-                            <!--routerLinkActive="active"-->
-                            <!--[routerLink]="['/', node.id, node.name.toString().replace(globalreplace, '_').replace(globalreplace2, '') ]">-->
-                        <!--{{node.name}}-->
-                    <!--</button>-->
-                <!--</mat-tree-node>-->
-                <!--&lt;!&ndash; This is the tree node template for expandable nodes &ndash;&gt;-->
-                <!--<mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>-->
-                    <!--<button mat-icon-button matTreeNodeToggle-->
-                            <!--[attr.aria-label]="'toggle ' + node.name">-->
-                        <!--<mat-icon class="mat-icon-rtl-mirror">-->
-                            <!--{{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}-->
-                        <!--</mat-icon>-->
-                    <!--</button>-->
-                    <!--{{node.name}}-->
-                <!--</mat-tree-node>-->
-            <!--</mat-tree>-->
             <hr>
             <div class="md-form">
                 <input type="search" [(ngModel)]="searchText" placeholder="Search">
@@ -210,13 +188,19 @@
                     <strong class="text-info">Try It!</strong>
                 </a>
             </logo>
+            <logo class="ml-3">
+                <a class="navbar-brand" routerLink="sql-queries-sample">
+                    <strong class="text-info">SQL - Tutorial Query Sample</strong>
+                </a>
+            </logo>
         </div>
         <!-- Collapsible content -->
         <links>
             <!-- Links -->
             <ul class="navbar-nav ml-auto">
                 <!-- Home -->
-                <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" *ngSwitchCase="false">
+                <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+                    *ngSwitchCase="false">
                     <a class="nav-link waves-light text-info" mdbWavesEffect (click)="collapseNavbar()">
                     <span>
                         <mdb-icon fas icon="home"></mdb-icon>
@@ -225,8 +209,10 @@
                     </a>
                 </li>
 
-                <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" *ngSwitchCase="true">
-                    <a class="nav-link waves-light text-info" mdbWavesEffect routerLink="dashboard" (click)="collapseNavbar()">
+                <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+                    *ngSwitchCase="true">
+                    <a class="nav-link waves-light text-info" mdbWavesEffect routerLink="dashboard"
+                       (click)="collapseNavbar()">
                     <span>
                         <mdb-icon fas icon="home"></mdb-icon>
                         <span jhiTranslate="global.menu.home">Home</span>
