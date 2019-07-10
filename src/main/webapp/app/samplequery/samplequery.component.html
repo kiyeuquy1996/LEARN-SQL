@@ -1,50 +1,65 @@
 <div class="row">
     <div class="col-md-12">
-        <div class="row">
-            <h2>Tutorial Query Sample</h2>
-        </div>
-        <div class="row">
-            <br>
-        </div>
-        <div class="row">
-            <br>
-        </div>
-        <div class="row">
-            <br>
-        </div>
-        <div class="row">
-            <div class="col-md-3">
-                <strong><p class="text-center">Title</p></strong>
-            </div>
-            <div class="col-md-5">
-                <strong><p class="text-center">Description</p></strong>
-            </div>
-            <div class="col-md-4">
-                <strong><p class="text-center">Query</p></strong>
-            </div>
-        </div>
+        <h3>SQL - Tutorial Query Sample</h3>
         <hr>
-    </div>
-</div>
-
-<div class="row" *ngFor="let sql of sQLQueries; let i=index">
-    <div class="col-md-12">
-        <div class="row">
-            <div class="col-md-3">
-                <div class="alert alert-light" role="alert">
-                    <mdb-icon fas icon="code"></mdb-icon> <code>&lt;{{sql.title}}&gt;</code>
-                </div>
-            </div>
-            <div class="col-md-5">
-                <div class="alert alert-light" role="alert">
-                    <kbd>{{sql.description}}</kbd>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="alert alert-light d-inline-block text-truncate" role="alert" style="max-width: 320px;">
-                    <code>&lt;{{sql.query}}&gt;</code>
-                </div>
-            </div>
-        </div>
+        <table mdbTable hover="true">
+            <thead>
+            <tr>
+                <th *ngFor="let head of headElements" scope="col"><span class="text-primary"><i>{{head}}</i></span></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr mdbTableCol *ngFor="let sql of sQLQueries">
+                <th scope="row"><code>{{sql.title}}</code></th>
+                <td><i>{{sql.description}}</i></td>
+                <td><strong>{{sql.query}}</strong></td>
+                <td class="text-right">
+                    <ng-template #longContent let-modal>
+                        <div class="modal-header">
+                            <h4 class="modal-title">{{sql.title}}</h4>
+                            <button type="button" class="close" aria-label="Close"
+                                    (click)="modal.dismiss('Cross click')">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div *ngFor="let item of data">
+                                <div *ngIf="item.row.length > 0">
+                                    <div class="overflow-auto">
+                                        <table mdbTable hover="true">
+                                            <thead>
+                                            <tr>
+                                                <th *ngFor="let key of item.row[0] | keys2"
+                                                    scope="col">{{key | uppercase}}</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr mdbTableCol *ngFor="let c of item.row">
+                                                <td *ngFor="let key of c | keys2">{{c[key]}}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div *ngIf="item.mess" #alert
+                                     class="alert alert-warning alert-dismissible fade show" role="alert">
+                                    <h4 class="alert-heading">Warning!</h4>
+                                    <p>{{item.mess}}</p>
+                                    <hr>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" (click)="modal.close('Close click')">Close
+                            </button>
+                        </div>
+                    </ng-template>
+                    <button type="button" mdbBtn color="success" rounded="true"
+                            (click)="openXl(longContent, sql.query)" mdbWavesEffect>View
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
