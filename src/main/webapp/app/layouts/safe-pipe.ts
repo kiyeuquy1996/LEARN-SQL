@@ -72,6 +72,20 @@ export class KeysPipe2 implements PipeTransform {
     }
 }
 
+@Pipe({name: 'keys3'})
+export class KeysPipe3 implements PipeTransform {
+    transform(value, args: string[]): any {
+        let keys = [];
+        for (let key in value) {
+            keys.push(key);
+        }
+        keys = keys.sort((x, y) => {
+            return x.length - y.length;
+        });
+        return keys;
+    }
+}
+
 @Pipe({name: 'substring'})
 export class SubString implements PipeTransform {
     transform(value: string): any {

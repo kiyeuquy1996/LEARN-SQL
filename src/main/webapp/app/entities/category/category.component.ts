@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ChangeDetectorRef, HostListener} from '@angular/core';
 import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs';
@@ -8,18 +8,24 @@ import {JhiEventManager, JhiAlertService} from 'ng-jhipster';
 import {ICategory} from 'app/shared/model/category.model';
 import {AccountService} from 'app/core';
 import {CategoryService} from './category.service';
+import {MdbTableDirective, MdbTablePaginationComponent} from 'angular-bootstrap-md';
 
 @Component({
     selector: 'jhi-category',
     templateUrl: './category.component.html'
 })
-export class CategoryComponent implements OnInit, OnDestroy {
-    categories: ICategory[];
+export class CategoryComponent implements OnInit, AfterViewInit, OnDestroy {
+    @ViewChild(MdbTablePaginationComponent) mdbTablePagination: MdbTablePaginationComponent;
+    @ViewChild(MdbTableDirective) mdbTable: MdbTableDirective;
+    categories: ICategory[] = [];
+    previous: ICategory[];
     currentAccount: any;
     eventSubscriber: Subscription;
     currentSearch: string;
+    searchText: string;
 
     constructor(
+        private cdRef: ChangeDetectorRef,
         protected categoryService: CategoryService,
         protected jhiAlertService: JhiAlertService,
         protected eventManager: JhiEventManager,
@@ -30,6 +36,24 @@ export class CategoryComponent implements OnInit, OnDestroy {
             this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['search']
                 ? this.activatedRoute.snapshot.params['search']
                 : '';
+    }
+
+    @HostListener('input') oninput() {
+        this.searchItems();
+    }
+
+    searchItems() {
+        const prev = this.mdbTable.getDataSource();
+
+        if (!this.searchText) {
+            this.mdbTable.setDataSource(this.previous);
+            this.categories = this.mdbTable.getDataSource();
+        }
+
+        if (this.searchText) {
+            this.categories = this.mdbTable.searchLocalDataBy(this.searchText);
+            this.mdbTable.setDataSource(prev);
+        }
     }
 
     loadAll() {
@@ -54,6 +78,9 @@ export class CategoryComponent implements OnInit, OnDestroy {
             .subscribe(
                 (res: ICategory[]) => {
                     this.categories = res;
+                    this.mdbTable.setDataSource(this.categories);
+                    this.categories = this.mdbTable.getDataSource();
+                    this.previous = this.mdbTable.getDataSource();
                     this.currentSearch = '';
                 },
                 (res: HttpErrorResponse) => this.onError(res.message)
@@ -95,5 +122,13 @@ export class CategoryComponent implements OnInit, OnDestroy {
 
     protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    ngAfterViewInit() {
+        this.mdbTablePagination.setMaxVisibleItemsNumberTo(5);
+
+        this.mdbTablePagination.calculateFirstItemIndex();
+        this.mdbTablePagination.calculateLastItemIndex();
+        this.cdRef.detectChanges();
     }
 }

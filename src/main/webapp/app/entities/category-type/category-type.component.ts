@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ChangeDetectorRef, HostListener} from '@angular/core';
 import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs';
@@ -8,19 +8,25 @@ import {JhiEventManager, JhiAlertService} from 'ng-jhipster';
 import {ICategoryType} from 'app/shared/model/category-type.model';
 import {AccountService} from 'app/core';
 import {CategoryTypeService} from './category-type.service';
+import {MdbTableDirective, MdbTablePaginationComponent} from 'angular-bootstrap-md';
 
 @Component({
     selector: 'jhi-category-type',
     templateUrl: './category-type.component.html',
     styleUrls: ['../search.scss']
 })
-export class CategoryTypeComponent implements OnInit, OnDestroy {
-    categoryTypes: ICategoryType[];
+export class CategoryTypeComponent implements OnInit, AfterViewInit, OnDestroy {
+    @ViewChild(MdbTablePaginationComponent) mdbTablePagination: MdbTablePaginationComponent;
+    @ViewChild(MdbTableDirective) mdbTable: MdbTableDirective;
+    previous: ICategoryType[];
+    categoryTypes: ICategoryType[] = [];
+    searchText: string;
     currentAccount: any;
     eventSubscriber: Subscription;
     currentSearch: string;
 
     constructor(
+        private cdRef: ChangeDetectorRef,
         protected categoryTypeService: CategoryTypeService,
         protected jhiAlertService: JhiAlertService,
         protected eventManager: JhiEventManager,
@@ -31,6 +37,24 @@ export class CategoryTypeComponent implements OnInit, OnDestroy {
             this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['search']
                 ? this.activatedRoute.snapshot.params['search']
                 : '';
+    }
+
+    @HostListener('input') oninput() {
+        this.searchItems();
+    }
+
+    searchItems() {
+        const prev = this.mdbTable.getDataSource();
+
+        if (!this.searchText) {
+            this.mdbTable.setDataSource(this.previous);
+            this.categoryTypes = this.mdbTable.getDataSource();
+        }
+
+        if (this.searchText) {
+            this.categoryTypes = this.mdbTable.searchLocalDataBy(this.searchText);
+            this.mdbTable.setDataSource(prev);
+        }
     }
 
     loadAll() {
@@ -55,6 +79,9 @@ export class CategoryTypeComponent implements OnInit, OnDestroy {
             .subscribe(
                 (res: ICategoryType[]) => {
                     this.categoryTypes = res;
+                    this.mdbTable.setDataSource(this.categoryTypes);
+                    this.categoryTypes = this.mdbTable.getDataSource();
+                    this.previous = this.mdbTable.getDataSource();
                     this.currentSearch = '';
                 },
                 (res: HttpErrorResponse) => this.onError(res.message)
@@ -96,5 +123,13 @@ export class CategoryTypeComponent implements OnInit, OnDestroy {
 
     protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    ngAfterViewInit() {
+        this.mdbTablePagination.setMaxVisibleItemsNumberTo(5);
+
+        this.mdbTablePagination.calculateFirstItemIndex();
+        this.mdbTablePagination.calculateLastItemIndex();
+        this.cdRef.detectChanges();
     }
 }

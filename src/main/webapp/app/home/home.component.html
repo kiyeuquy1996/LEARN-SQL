@@ -4,13 +4,13 @@
         <br>
         <div class="clearfix">
             <span class="float-left">
-                <button type="button" mdbBtn color="success" mdbWavesEffect>
+                <button (click)="previous()" type="button" mdbBtn color="success" mdbWavesEffect>
                     <mdb-icon fas icon="chevron-left"></mdb-icon>
                     Previous
                 </button>
             </span>
             <span class="float-right">
-                <button type="button" mdbBtn color="success" mdbWavesEffect>
+                <button (click)="next()" type="button" mdbBtn color="success" mdbWavesEffect>
                     Next
                     <mdb-icon fas icon="chevron-right"></mdb-icon>
                 </button>
@@ -30,7 +30,7 @@
             <!--Note-->
             <div *ngIf="content.categoryId === idContent && content.typeContentId === 2">
                 <blockquote class="blockquote bq-warning my-4">
-                    <p class="py-1 mb-0 text-warning"><a rel="nofollow">{{ content.title }}</a></p>
+                    <p class="py-1 mb-0 text-warning"><strong>{{ content.title }}</strong></p>
                     <p><em>{{ content.content }}</em></p>
                 </blockquote>
                 <hr>
@@ -46,104 +46,6 @@
                         </blockquote>
                     </mdb-card-body>
                 </mdb-card>
-                <hr>
-            </div>
-
-            <!--Table Data-->
-            <div *ngIf="content.categoryId === idContent && content.typeContentId === 4">
-                <h3 class="h3-responsive"><strong>{{content.title}}</strong></h3>
-                <h5 class="h5-responsive">{{content.content}}</h5>
-                <div *ngIf="getTableData(idContent) === 'Customers'">
-                    <table mdbTable hover="true">
-                        <thead>
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Customer Name</th>
-                            <th scope="col">Contact Name</th>
-                            <th scope="col">Address</th>
-                            <th scope="col">City</th>
-                            <th scope="col">Postal Code</th>
-                            <th scope="col">Country</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr mdbTableCol *ngFor="let customer of customers; let i=index">
-                            <th scope="row" *ngIf="i<limitRecord">{{customer.id}}</th>
-                            <td *ngIf="i<limitRecord">{{customer.customerName}}</td>
-                            <td *ngIf="i<limitRecord">{{customer.contactName}}</td>
-                            <td *ngIf="i<limitRecord">{{customer.address}}</td>
-                            <td *ngIf="i<limitRecord">{{customer.city}}</td>
-                            <td *ngIf="i<limitRecord">{{customer.postalCode}}</td>
-                            <td *ngIf="i<limitRecord">{{customer.country}}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div *ngIf="getTableData(idContent) === 'Employees'">
-                    <table mdbTable hover="true">
-                        <thead>
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Last Name</th>
-                            <th scope="col">First Name</th>
-                            <th scope="col">Birth Date</th>
-                            <th scope="col">Notes</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr mdbTableCol *ngFor="let employee of employees; let i=index">
-                            <th scope="row" *ngIf="i<limitRecord">{{employee.id}}</th>
-                            <td *ngIf="i<limitRecord">{{employee.lastName}}</td>
-                            <td *ngIf="i<limitRecord">{{employee.firstName}}</td>
-                            <td *ngIf="i<limitRecord">{{employee.birthDate | date:'medium'}}</td>
-                            <td *ngIf="i<limitRecord">{{employee.notes}}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div *ngIf="getTableData(idContent) === 'Orders'">
-                    <table mdbTable hover="true">
-                        <thead>
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Order Date</th>
-                            <th scope="col">Customer</th>
-                            <th scope="col">Employees</th>
-                            <th scope="col">Shipper</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr mdbTableCol *ngFor="let orders of orders; let i=index">
-                            <th scope="row" *ngIf="i<limitRecord">{{orders.id}}</th>
-                            <td *ngIf="i<limitRecord">{{orders.orderDate | date:'medium'}}</td>
-                            <td *ngIf="i<limitRecord">{{orders.customerId}}</td>
-                            <td *ngIf="i<limitRecord">{{orders.employeesId}}</td>
-                            <td *ngIf="i<limitRecord">{{orders.shipperId}}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div *ngIf="getTableData(idContent) === 'Shipper'">
-                    <table mdbTable hover="true">
-                        <thead>
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Shipper Name</th>
-                            <th scope="col">Phone</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr mdbTableCol *ngFor="let shipper of shippers; let i=index">
-                            <th scope="row" *ngIf="i<limitRecord">{{shipper.id}}</th>
-                            <td *ngIf="i<limitRecord">{{shipper.shipperName}}</td>
-                            <td *ngIf="i<limitRecord">{{shipper.phone}}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
                 <hr>
             </div>
 
@@ -166,10 +68,48 @@
                                 <p innerHTML="{{ content.content | highlight: arrayHighLight}}"></p>
                             </blockquote>
                         </mdb-card-title>
-                        <!--<mdb-card-text>-->
-                        <!--<h5>{{content.content}}</h5>-->
-                        <!--</mdb-card-text>-->
-                        <a routerLink="try-it" mdbBtn color="success">Try it Yourself »</a>
+                        <button type="button" mdbBtn color="success" rounded="true"
+                                (click)="openXl(longContent, content.content)" mdbWavesEffect>Result
+                        </button><ng-template #longContent let-modal>
+                        <div class="modal-header">
+                            <h4 class="modal-title">{{content.title}}</h4>
+                            <button type="button" class="close" aria-label="Close"
+                                    (click)="modal.dismiss('Cross click')">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div *ngFor="let item of datas">
+                                <div *ngIf="item.row.length > 0">
+                                    <div class="overflow-auto">
+                                        <table mdbTable hover="true">
+                                            <thead>
+                                            <tr>
+                                                <th *ngFor="let key of item.row[0] | keys3"
+                                                    scope="col">{{key | uppercase}}</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr mdbTableCol *ngFor="let c of item.row">
+                                                <td *ngFor="let key of c | keys3">{{c[key]}}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div *ngIf="item.mess" #alert
+                                     class="alert alert-warning alert-dismissible fade show" role="alert">
+                                    <h4 class="alert-heading">Warning!</h4>
+                                    <p>{{item.mess}}</p>
+                                    <hr>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" (click)="modal.close('Close click')">Close
+                            </button>
+                        </div>
+                    </ng-template>
                     </mdb-card-body>
                 </mdb-card>
                 <hr>
@@ -186,13 +126,13 @@
         <br>
         <div class="clearfix">
             <span class="float-left">
-                <button type="button" mdbBtn color="success" mdbWavesEffect>
+                <button (click)="previous()" type="button" mdbBtn color="success" mdbWavesEffect>
                     <mdb-icon fas icon="chevron-left"></mdb-icon>
                     Previous
                 </button>
             </span>
             <span class="float-right">
-                <button type="button" mdbBtn color="success" mdbWavesEffect>
+                <button (click)="next()" type="button" mdbBtn color="success" mdbWavesEffect>
                     Next
                     <mdb-icon fas icon="chevron-right"></mdb-icon>
                 </button>

@@ -64,7 +64,7 @@ import {SamplequeryModule} from 'app/samplequery/samplequery.module';
         LearnSqlEntityModule,
         LearnSqlAppRoutingModule,
         MDBBootstrapModule.forRoot(),
-        MatTreeModule, MatIconModule, MatButtonModule, MatTabsModule
+        // MatTreeModule, MatIconModule, MatButtonModule, MatTabsModule
     ],
     declarations: [
         FilterPipe,

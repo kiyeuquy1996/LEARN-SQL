@@ -10,42 +10,50 @@
         </button>
     </h2>
     <jhi-alert></jhi-alert>
-    <div class="row">
-        <div class="col-sm-12">
-            <!--            <form name="searchForm" class="form-inline">-->
-            <!--                <div class="input-group w-100 mt-3">-->
-            <!--                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'learnSqlApp.typeContent.home.search' | translate }}">-->
-            <!--                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">-->
-            <!--                        <fa-icon [icon]="'search'"></fa-icon>-->
-            <!--                    </button>-->
-            <!--                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">-->
-            <!--                        <fa-icon [icon]="'trash-alt'"></fa-icon>-->
-            <!--                    </button>-->
-            <!--                </div>-->
-            <!--            </form>-->
+<!--    <div class="row">-->
+<!--        <div class="col-sm-12">-->
+<!--            &lt;!&ndash;            <form name="searchForm" class="form-inline">&ndash;&gt;-->
+<!--            &lt;!&ndash;                <div class="input-group w-100 mt-3">&ndash;&gt;-->
+<!--            &lt;!&ndash;                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'learnSqlApp.typeContent.home.search' | translate }}">&ndash;&gt;-->
+<!--            &lt;!&ndash;                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">&ndash;&gt;-->
+<!--            &lt;!&ndash;                        <fa-icon [icon]="'search'"></fa-icon>&ndash;&gt;-->
+<!--            &lt;!&ndash;                    </button>&ndash;&gt;-->
+<!--            &lt;!&ndash;                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">&ndash;&gt;-->
+<!--            &lt;!&ndash;                        <fa-icon [icon]="'trash-alt'"></fa-icon>&ndash;&gt;-->
+<!--            &lt;!&ndash;                    </button>&ndash;&gt;-->
+<!--            &lt;!&ndash;                </div>&ndash;&gt;-->
+<!--            &lt;!&ndash;            </form>&ndash;&gt;-->
 
-            <form class="form-inline md-form form-sm active-cyan-2">
-                <input class="form-control form-control-sm mr-3 w-75"
-                       type="text"
-                       [(ngModel)]="currentSearch"
-                       name="currentSearch"
-                       placeholder="{{ 'learnSqlApp.typeContent.home.search' | translate }}"
-                       mdbInput>
-                <button class="input-group-append btn btn-info"
-                        (click)="search(currentSearch)">
-                    <fa-icon [icon]="'search'"></fa-icon>
-                </button>
-                <button class="input-group-append btn btn-danger"
-                        (click)="clear()"
-                        *ngIf="currentSearch">
-                    <fa-icon [icon]="'trash-alt'"></fa-icon>
-                </button>
-            </form>
+<!--            <form class="form-inline md-form form-sm active-cyan-2">-->
+<!--                <input class="form-control form-control-sm mr-3 w-75"-->
+<!--                       type="text"-->
+<!--                       [(ngModel)]="currentSearch"-->
+<!--                       name="currentSearch"-->
+<!--                       placeholder="{{ 'learnSqlApp.typeContent.home.search' | translate }}"-->
+<!--                       mdbInput>-->
+<!--                <button class="input-group-append btn btn-info"-->
+<!--                        (click)="search(currentSearch)">-->
+<!--                    <fa-icon [icon]="'search'"></fa-icon>-->
+<!--                </button>-->
+<!--                <button class="input-group-append btn btn-danger"-->
+<!--                        (click)="clear()"-->
+<!--                        *ngIf="currentSearch">-->
+<!--                    <fa-icon [icon]="'trash-alt'"></fa-icon>-->
+<!--                </button>-->
+<!--            </form>-->
+<!--        </div>-->
+<!--    </div>-->
+    <div class="row">
+        <div class="col-md-12 mx-auto">
+            <div class="md-form">
+                <input type="text" [(ngModel)]="searchText" class="form-control" id="search" mdbInput>
+                <label for="search">Search</label>
+            </div>
         </div>
     </div>
     <br/>
     <div class="table-responsive" *ngIf="typeContents">
-        <table mdbTable hover="true">
+        <table mdbTable hover="true" #tableEl="mdbTable">
             <thead>
             <tr>
                 <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
@@ -59,15 +67,15 @@
             </tr>
             </thead>
             <tbody>
-            <tr mdbTableCol *ngFor="let typeContent of typeContents ;trackBy: trackId">
-                <td scope="row"><a [routerLink]="['/type-content', typeContent.id, 'view' ]">{{typeContent.id}}</a></td>
-                <td>{{typeContent.nameTypeContent}}</td>
-                <td>{{typeContent.priority}}</td>
+            <tr mdbTableCol *ngFor="let typeContent of typeContents ;trackBy: trackId; let i = index">
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex"><a [routerLink]="['/type-content', typeContent.id, 'view' ]">{{typeContent.id}}</a></td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{typeContent.nameTypeContent}}</td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{typeContent.priority}}</td>
 <!--                <td>{{typeContent.createdDate | date:'medium'}}</td>-->
 <!--                <td>{{typeContent.createdBy}}</td>-->
 <!--                <td>{{typeContent.updatedDate | date:'medium'}}</td>-->
 <!--                <td>{{typeContent.updatedBy}}</td>-->
-                <td class="text-right">
+                <td class="text-right" *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
                                 [routerLink]="['/type-content', typeContent.id, 'view' ]"
@@ -93,6 +101,13 @@
                 </td>
             </tr>
             </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="12">
+                    <mdb-table-pagination [tableEl]="tableEl" [searchDataSource]="typeContents"></mdb-table-pagination>
+                </td>
+            </tr>
+            </tfoot>
         </table>
     </div>
 </div>

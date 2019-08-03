@@ -16,16 +16,12 @@ public class ExercisesAnswerDTO implements Serializable {
 
     private Boolean isCorrect;
 
-    @NotNull
     private String createdBy;
 
-    @NotNull
     private Instant createdDate;
 
-    @NotNull
     private String lastModifiedBy;
 
-    @NotNull
     private Instant lastModifiedDate;
 
     private Long exercisesId;

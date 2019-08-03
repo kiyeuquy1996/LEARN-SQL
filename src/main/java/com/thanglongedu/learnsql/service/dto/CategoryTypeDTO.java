@@ -17,16 +17,12 @@ public class CategoryTypeDTO implements Serializable {
 
     private String description;
 
-    @NotNull
     private String createdBy;
 
-    @NotNull
     private Instant createdDate;
 
-    @NotNull
     private String lastModifiedBy;
 
-    @NotNull
     private Instant lastModifiedDate;
 
     private Set<CategoryDTO> categoryTypeIDS;

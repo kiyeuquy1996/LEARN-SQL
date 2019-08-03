@@ -17,16 +17,12 @@ public class ContentDTO implements Serializable {
     @NotNull
     private String content;
 
-    @NotNull
     private String createdBy;
 
-    @NotNull
     private Instant createdDate;
 
-    @NotNull
     private String lastModifiedBy;
 
-    @NotNull
     private Instant lastModifiedDate;
 
     private Long categoryId;

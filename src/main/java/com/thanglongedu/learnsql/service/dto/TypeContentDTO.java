@@ -17,16 +17,12 @@ public class TypeContentDTO implements Serializable {
     @NotNull
     private Integer priority;
 
-    @NotNull
     private String createdBy;
 
-    @NotNull
     private Instant createdDate;
 
-    @NotNull
     private String lastModifiedBy;
 
-    @NotNull
     private Instant lastModifiedDate;
 
     public Long getId() {

@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {JhiAlertService, JhiEventManager} from 'ng-jhipster';
 import {LoginModalService, AccountService, Account} from 'app/core';
 import {DataService} from 'app/layouts/data.service';
@@ -20,10 +20,13 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ITryIt, TryIt} from 'app/shared/model/tryit.model';
 import {SERVER_API_URL} from 'app/app.constants';
 import {HttpClient, HttpErrorResponse, HttpResponse} from '@angular/common/http';
+import {ICategoryType} from 'app/shared/model/category-type.model';
+import {CategoryTypeService} from 'app/entities/category-type';
 
 @Component({
     selector: 'jhi-home',
     templateUrl: './home.component.html',
+    encapsulation: ViewEncapsulation.None,
     styleUrls: ['home.scss']
 })
 
@@ -33,6 +36,10 @@ export class HomeComponent implements OnInit {
     limitRecord: number;
     arrayHighLight: any[];
 
+    globalreplace: any;
+    globalreplace2: any;
+    publicDeals: ICategory[] = [];
+
     idContent: number;
     nameContent: string;
     titleContent: string;
@@ -41,6 +48,7 @@ export class HomeComponent implements OnInit {
 
     contents: IContent[];
     categories: ICategory[];
+    categoryTypes: ICategoryType[];
     lengcategories: number;
 
     customers: ICustomer[];
@@ -55,6 +63,8 @@ export class HomeComponent implements OnInit {
     public resourceUrl = SERVER_API_URL + 'api/try-it';
 
     constructor(
+        protected categoryTypeService: CategoryTypeService,
+        private modalService: NgbModal,
         protected http: HttpClient,
         protected customerService: CustomerService,
         protected employeesService: EmployeesService,
@@ -154,6 +164,8 @@ export class HomeComponent implements OnInit {
         ];
         this.loadAll();
         this.loadServiceDataTable();
+        this.globalreplace = / /g;
+        this.globalreplace2 = /,/g;
     }
 
     loadAll() {
@@ -184,14 +196,77 @@ export class HomeComponent implements OnInit {
                 // (res: HttpErrorResponse) => this.onError(res.message)
                 (res: HttpErrorResponse) => console.log('categoryService went wrong in HomeComponent!')
             );
+        this.categoryTypeService
+            .query()
+            .pipe(
+                filter((res: HttpResponse<ICategoryType[]>) => res.ok),
+                map((res: HttpResponse<ICategoryType[]>) => res.body)
+            )
+            .subscribe(
+                (res: ICategoryType[]) => {
+                    this.categoryTypes = res;
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
     }
 
-    next(id: number) {
-
+    loadTree() {
+        for (const i of this.categoryTypes) {
+            for (const j of this.categories) {
+                if (i.id === j.categoryTypeId) {
+                    this.publicDeals.push(j);
+                }
+            }
+        }
     }
 
-    previous(id: number) {
+    next() {
+        const splitted = this.router.url.split('/', 4);
+        this.loadTree();
 
+        if (+splitted[3] === this.publicDeals[this.publicDeals.length - 1].id) {
+            console.log('Cannot navigate to categories');
+        } else {
+            for (let i = 0; i < this.publicDeals.length; i++) {
+                if (+splitted[3] === this.publicDeals[i].id) {
+                    const x = ++i;
+                    const name = '/view/' + this.publicDeals[x].nameCategory.toString().replace(this.globalreplace, '_').replace(this.globalreplace2, '') + '/' + this.publicDeals[x].id;
+                    this.data.currentId.subscribe(id => {
+                        this.idContent = this.publicDeals[x].id;
+                        this.router.navigate([name]);
+                    });
+                    break;
+                }
+            }
+        }
+        this.publicDeals = [];
+    }
+
+    previous() {
+        const splitted = this.router.url.split('/', 4);
+        this.loadTree();
+
+        if (+splitted[3] === this.publicDeals[0].id) {
+            console.log('Cannot navigate to categories');
+        } else {
+            for (let i = 0; i < this.publicDeals.length; i++) {
+                if (+splitted[3] === this.publicDeals[i].id) {
+                    const x = --i;
+                    const name = '/view/' + this.publicDeals[x].nameCategory.toString().replace(this.globalreplace, '_').replace(this.globalreplace2, '') + '/' + this.publicDeals[x].id;
+                    this.data.currentId.subscribe(id => {
+                        this.idContent = this.publicDeals[x].id;
+                        this.router.navigate([name]);
+                    });
+                    break;
+                }
+            }
+        }
+        this.publicDeals = [];
+    }
+
+    openXl(content, query) {
+        this.modalService.open(content, {size: 'lg'});
+        this.getQuerySQL(query);
     }
 
     loadServiceDataTable() {
@@ -252,13 +327,7 @@ export class HomeComponent implements OnInit {
         this.data.currentId.subscribe(id => {
             if (id === null) {
                 this.idContent = 1;
-                this.router.navigate(['/view/SQL_Intro/1']).then(e => {
-                    if (e) {
-                        console.log('Success');
-                    } else {
-                        console.log('Fail');
-                    }
-                });
+                this.router.navigate(['/view/SQL_Intro/1']);
             } else {
                 this.idContent = id;
             }

@@ -23,16 +23,12 @@ public class ExercisesDTO implements Serializable {
     @NotNull
     private Integer timeOnMinutes;
 
-    @NotNull
     private String createdBy;
 
-    @NotNull
     private Instant createdDate;
 
-    @NotNull
     private String lastModifiedBy;
 
-    @NotNull
     private Instant lastModifiedDate;
 
     private Long categoryId;

@@ -1,25 +1,31 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
+import {Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ChangeDetectorRef, HostListener} from '@angular/core';
+import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
+import {ActivatedRoute} from '@angular/router';
+import {Subscription} from 'rxjs';
+import {filter, map} from 'rxjs/operators';
+import {JhiEventManager, JhiAlertService} from 'ng-jhipster';
 
-import { ISQLQuery } from 'app/shared/model/sql-query.model';
-import { AccountService } from 'app/core';
-import { SQLQueryService } from './sql-query.service';
+import {ISQLQuery} from 'app/shared/model/sql-query.model';
+import {AccountService} from 'app/core';
+import {SQLQueryService} from './sql-query.service';
+import {MdbTableDirective, MdbTablePaginationComponent} from 'angular-bootstrap-md';
 
 @Component({
     selector: 'jhi-sql-query',
     templateUrl: './sql-query.component.html'
 })
-export class SQLQueryComponent implements OnInit, OnDestroy {
-    sQLQueries: ISQLQuery[];
+export class SQLQueryComponent implements OnInit, AfterViewInit, OnDestroy {
+    @ViewChild(MdbTablePaginationComponent) mdbTablePagination: MdbTablePaginationComponent;
+    @ViewChild(MdbTableDirective) mdbTable: MdbTableDirective;
+    previous: ISQLQuery[];
+    sQLQueries: ISQLQuery[] = [];
     currentAccount: any;
     eventSubscriber: Subscription;
     currentSearch: string;
+    searchText: string;
 
     constructor(
+        private cdRef: ChangeDetectorRef,
         protected sQLQueryService: SQLQueryService,
         protected jhiAlertService: JhiAlertService,
         protected eventManager: JhiEventManager,
@@ -30,6 +36,24 @@ export class SQLQueryComponent implements OnInit, OnDestroy {
             this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['search']
                 ? this.activatedRoute.snapshot.params['search']
                 : '';
+    }
+
+    @HostListener('input') oninput() {
+        this.searchItems();
+    }
+
+    searchItems() {
+        const prev = this.mdbTable.getDataSource();
+
+        if (!this.searchText) {
+            this.mdbTable.setDataSource(this.previous);
+            this.sQLQueries = this.mdbTable.getDataSource();
+        }
+
+        if (this.searchText) {
+            this.sQLQueries = this.mdbTable.searchLocalDataBy(this.searchText);
+            this.mdbTable.setDataSource(prev);
+        }
     }
 
     loadAll() {
@@ -54,6 +78,9 @@ export class SQLQueryComponent implements OnInit, OnDestroy {
             .subscribe(
                 (res: ISQLQuery[]) => {
                     this.sQLQueries = res;
+                    this.mdbTable.setDataSource(this.sQLQueries);
+                    this.sQLQueries = this.mdbTable.getDataSource();
+                    this.previous = this.mdbTable.getDataSource();
                     this.currentSearch = '';
                 },
                 (res: HttpErrorResponse) => this.onError(res.message)
@@ -95,5 +122,13 @@ export class SQLQueryComponent implements OnInit, OnDestroy {
 
     protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    ngAfterViewInit() {
+        this.mdbTablePagination.setMaxVisibleItemsNumberTo(5);
+
+        this.mdbTablePagination.calculateFirstItemIndex();
+        this.mdbTablePagination.calculateLastItemIndex();
+        this.cdRef.detectChanges();
     }
 }

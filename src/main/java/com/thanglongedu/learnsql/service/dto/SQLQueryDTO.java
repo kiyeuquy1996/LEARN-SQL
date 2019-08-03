@@ -22,16 +22,12 @@ public class SQLQueryDTO implements Serializable {
 
     private String description;
 
-    @NotNull
     private String createdBy;
 
-    @NotNull
     private Instant createdDate;
 
-    @NotNull
     private String lastModifiedBy;
 
-    @NotNull
     private Instant lastModifiedDate;
 
     public Long getId() {
