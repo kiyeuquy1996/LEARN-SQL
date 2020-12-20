@@ -22,7 +22,12 @@ public class TryItResource {
 
             String PASSWORD = "123456aA@";
             String USER_NAME = "root";
+//            String DB_URL = System.getenv("MYSQL_URL");
             String DB_URL = "jdbc:mysql://localhost:3306/LearnSQL?allowMultiQueries=true&?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC";
+            System.out.println("MYSQL_URL: " + DB_URL);
+
+//            String DB_URL = "jdbc:mysql://localhost:3306/LearnSQL?allowMultiQueries=true&?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC";
+//                mysqlConStr = "jdbc:mysql://learnsql-mysql:3306/learnsql?allowMultiQueries=true&?allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf8&useSSL=false";
             // String DB_URL = "jdbc:mysql://localhost:3306/LearnSQL";
             Connection conn = DriverManager.getConnection(DB_URL,
                 USER_NAME, PASSWORD);
@@ -113,6 +118,11 @@ public class TryItResource {
 
             String PASSWORD = "123456aA@";
             String USER_NAME = "root";
+
+//            String DB_URL = System.getenv("MYSQL_URL");
+
+//            System.out.println("MYSQL_URL: " + DB_URL);
+
             String DB_URL = "jdbc:mysql://localhost:3306/LearnSQL?allowMultiQueries=true&?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC";
             // String DB_URL = "jdbc:mysql://localhost:3306/LearnSQL";
             Connection conn = DriverManager.getConnection(DB_URL,
@@ -159,6 +169,11 @@ public class TryItResource {
 
             String PASSWORD = "123456aA@";
             String USER_NAME = "root";
+
+//            String DB_URL = System.getenv("MYSQL_URL");
+//
+//            System.out.println("MYSQL_URL: " + DB_URL);
+
             String DB_URL = "jdbc:mysql://localhost:3306/LearnSQL?allowMultiQueries=true&?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC";
             // String DB_URL = "jdbc:mysql://localhost:3306/LearnSQL";
             Connection conn = DriverManager.getConnection(DB_URL,
@@ -208,6 +223,11 @@ public class TryItResource {
 
             String PASSWORD = "123456aA@";
             String USER_NAME = "root";
+
+//            String DB_URL = System.getenv("MYSQL_URL");
+//
+//            System.out.println("MYSQL_URL: " + DB_URL);
+
             String DB_URL = "jdbc:mysql://localhost:3306/LearnSQL?allowMultiQueries=true&?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC";
             // String DB_URL = "jdbc:mysql://localhost:3306/LearnSQL";
             Connection conn = DriverManager.getConnection(DB_URL,
@@ -256,6 +276,11 @@ public class TryItResource {
 
             String PASSWORD = "123456aA@";
             String USER_NAME = "root";
+
+//            String DB_URL = System.getenv("MYSQL_URL");
+//
+//            System.out.println("MYSQL_URL: " + DB_URL);
+
             String DB_URL = "jdbc:mysql://localhost:3306/LearnSQL?allowMultiQueries=true&?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC";
             Connection conn = DriverManager.getConnection(DB_URL,
                 USER_NAME, PASSWORD);

@@ -70,46 +70,47 @@
                         </mdb-card-title>
                         <button type="button" mdbBtn color="success" rounded="true"
                                 (click)="openXl(longContent, content.content)" mdbWavesEffect>Result
-                        </button><ng-template #longContent let-modal>
-                        <div class="modal-header">
-                            <h4 class="modal-title">{{content.title}}</h4>
-                            <button type="button" class="close" aria-label="Close"
-                                    (click)="modal.dismiss('Cross click')">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div *ngFor="let item of datas">
-                                <div *ngIf="item.row.length > 0">
-                                    <div class="overflow-auto">
-                                        <table mdbTable hover="true">
-                                            <thead>
-                                            <tr>
-                                                <th *ngFor="let key of item.row[0] | keys3"
-                                                    scope="col">{{key | uppercase}}</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr mdbTableCol *ngFor="let c of item.row">
-                                                <td *ngFor="let key of c | keys3">{{c[key]}}</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
+                        </button>
+                        <ng-template #longContent let-modal>
+                            <div class="modal-header">
+                                <h4 class="modal-title">{{content.title}}</h4>
+                                <button type="button" class="close" aria-label="Close"
+                                        (click)="modal.dismiss('Cross click')">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div *ngFor="let item of datas">
+                                    <div *ngIf="item.row.length > 0">
+                                        <div class="overflow-auto">
+                                            <table mdbTable hover="true">
+                                                <thead>
+                                                <tr>
+                                                    <th *ngFor="let key of item.row[0] | keys3"
+                                                        scope="col">{{key | uppercase}}</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr mdbTableCol *ngFor="let c of item.row">
+                                                    <td *ngFor="let key of c | keys3">{{c[key]}}</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="item.mess" #alert
+                                         class="alert alert-warning alert-dismissible fade show" role="alert">
+                                        <h4 class="alert-heading">Warning!</h4>
+                                        <p>{{item.mess}}</p>
+                                        <hr>
                                     </div>
                                 </div>
-                                <div *ngIf="item.mess" #alert
-                                     class="alert alert-warning alert-dismissible fade show" role="alert">
-                                    <h4 class="alert-heading">Warning!</h4>
-                                    <p>{{item.mess}}</p>
-                                    <hr>
-                                </div>
                             </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" (click)="modal.close('Close click')">Close
-                            </button>
-                        </div>
-                    </ng-template>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" (click)="modal.close('Close click')">Close
+                                </button>
+                            </div>
+                        </ng-template>
                     </mdb-card-body>
                 </mdb-card>
                 <hr>
@@ -122,21 +123,6 @@
                 </div>
                 <hr>
             </div>
-        </div>
-        <br>
-        <div class="clearfix">
-            <span class="float-left">
-                <button (click)="previous()" type="button" mdbBtn color="success" mdbWavesEffect>
-                    <mdb-icon fas icon="chevron-left"></mdb-icon>
-                    Previous
-                </button>
-            </span>
-            <span class="float-right">
-                <button (click)="next()" type="button" mdbBtn color="success" mdbWavesEffect>
-                    Next
-                    <mdb-icon fas icon="chevron-right"></mdb-icon>
-                </button>
-            </span>
         </div>
     </div>
 </div>

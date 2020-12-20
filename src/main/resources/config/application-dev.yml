@@ -38,7 +38,7 @@ spring:
         type: com.zaxxer.hikari.HikariDataSource
         url: jdbc:mysql://localhost:3306/LearnSQL?allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC
         username: root
-        password: 123456aA@
+        password: 123456
         hikari:
             poolName: Hikari
             auto-commit: false
@@ -72,8 +72,8 @@ spring:
 #        password:
         host: smtp.gmail.com
         port: 587
-        username: xuanha.framgia@gmail.com #Replace this field with your Gmail username.
-        password: xuanhatlu          #Replace this field with your Gmail password.
+        username: khai.tranquang0911@gmail.com #Replace this field with your Gmail username.
+        password: khai@1996          #Replace this field with your Gmail password.
         protocol: smtp
         tls: true
         properties.mail.smtp:

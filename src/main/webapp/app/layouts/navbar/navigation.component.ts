@@ -1,21 +1,21 @@
-import {Component, OnInit, Input} from '@angular/core';
-import {AccountService, JhiLanguageHelper, LoginModalService, LoginService} from 'app/core';
-import {JhiAlertService, JhiEventManager, JhiLanguageService} from 'ng-jhipster';
-import {SessionStorageService} from 'ngx-webstorage';
-import {ProfileService} from 'app/layouts';
-import {Router} from '@angular/router';
-import {VERSION} from 'app/app.constants';
-import {NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
-import {ICategoryType} from 'app/shared/model/category-type.model';
-import {CategoryTypeService} from 'app/entities/category-type';
-import {filter, map} from 'rxjs/operators';
-import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
-import {Subscription} from 'rxjs';
-import {FlatTreeControl} from '@angular/cdk/tree';
-import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
-import {ICategory} from 'app/shared/model/category.model';
-import {DataService} from 'app/layouts/data.service';
-import {CategoryService} from 'app/entities/category';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { AccountService, JhiLanguageHelper, LoginModalService, LoginService } from 'app/core';
+import { JhiAlertService, JhiEventManager, JhiLanguageService } from 'ng-jhipster';
+import { SessionStorageService } from 'ngx-webstorage';
+import { ProfileService } from 'app/layouts';
+import { Router } from '@angular/router';
+import { VERSION } from 'app/app.constants';
+import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { ICategoryType } from 'app/shared/model/category-type.model';
+import { CategoryTypeService } from 'app/entities/category-type';
+import { filter, map } from 'rxjs/operators';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { Subscription } from 'rxjs';
+import { FlatTreeControl } from '@angular/cdk/tree';
+import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
+import { ICategory } from 'app/shared/model/category.model';
+import { DataService } from 'app/layouts/data.service';
+import { CategoryService } from 'app/entities/category';
 
 /** Flat node with expandable and level information */
 interface ExampleFlatNode {
@@ -42,7 +42,7 @@ class MyDataNode {
     templateUrl: './navigation.component.html',
     styleUrls: ['./navigation.component.scss']
 })
-export class NavigationComponent implements OnInit {
+export class NavigationComponent implements OnInit, OnDestroy {
     // @ViewChild('sidenav') sidenav: ElementRef;
 
     categories: ICategory[];
@@ -58,29 +58,30 @@ export class NavigationComponent implements OnInit {
     version: string;
     globalreplace: any;
     globalreplace2: any;
+    searchText: string;
 
-    private transformer = (node: MyDataNode, level: number) => {
-        return {
-            expandable: !!node.children && node.children.length > 0,
-            id: node.id,
-            name: node.name,
-            title: node.title,
-            description: node.description,
-            table: node.table,
-            level,
-        };
-    };
-
-    treeControl = new FlatTreeControl<ExampleFlatNode>(
-        node => node.level, node => node.expandable);
-
-    treeFlattener = new MatTreeFlattener(
-        this.transformer,
-        node => node.level,
-        node => node.expandable,
-        node => node.children);
-
-    dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+    // private transformer = (node: MyDataNode, level: number) => {
+    //     return {
+    //         expandable: !!node.children && node.children.length > 0,
+    //         id: node.id,
+    //         name: node.name,
+    //         title: node.title,
+    //         description: node.description,
+    //         table: node.table,
+    //         level,
+    //     };
+    // };
+    //
+    // treeControl = new FlatTreeControl<ExampleFlatNode>(
+    //     node => node.level, node => node.expandable);
+    //
+    // treeFlattener = new MatTreeFlattener(
+    //     this.transformer,
+    //     node => node.level,
+    //     node => node.expandable,
+    //     node => node.children);
+    //
+    // dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
     constructor(
         protected categoryTypeService: CategoryTypeService,
@@ -100,6 +101,15 @@ export class NavigationComponent implements OnInit {
         this.clicked = this.clicked === undefined ? false : true;
         this.version = VERSION ? 'v' + VERSION : '';
         this.isNavbarCollapsed = true;
+
+        this.loadAll();
+        this.globalreplace = / /g;
+        this.globalreplace2 = /,/g;
+    }
+
+    // hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
+
+    loadAll() {
         this.categoryService
             .query()
             .pipe(
@@ -126,52 +136,43 @@ export class NavigationComponent implements OnInit {
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
 
-        this.loadAll();
-        this.globalreplace = / /g;
-        this.globalreplace2 = /,/g;
-    }
-
-    hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
-
-    loadAll() {
-        this.categoryTypeService
-            .query()
-            .pipe(
-                filter((res: HttpResponse<ICategoryType[]>) => res.ok),
-                map((res: HttpResponse<ICategoryType[]>) => res.body)
-            )
-            .subscribe(
-                (res: ICategoryType[]) => {
-                    const tmpArr: MyDataNode[] = [];
-                    res.forEach(value => {
-                        const tmp = new MyDataNode();
-                        tmp.id = value.id;
-                        tmp.name = value.nameCategoryType;
-                        tmp.children = [];
-                        if (value.categoryTypeIDS.length > 0) {
-                            value.categoryTypeIDS.forEach(value1 => {
-                                tmp.children.push
-                                ({
-                                    id: value1.id,
-                                    name: value1.nameCategory,
-                                    title: value1.title,
-                                    description: value1.description,
-                                    table: value1.nameTableData,
-                                    children: []
-                                });
-                            });
-                        }
-                        tmpArr.push(tmp);
-                    });
-                    this.dataSource.data = tmpArr;
-                },
-                // (res: HttpErrorResponse) => this.onError(res.message)
-                (res: HttpErrorResponse) => console.log('Something went wrong!')
-            );
+        // this.categoryTypeService
+        //     .query()
+        //     .pipe(
+        //         filter((res: HttpResponse<ICategoryType[]>) => res.ok),
+        //         map((res: HttpResponse<ICategoryType[]>) => res.body)
+        //     )
+        //     .subscribe(
+        //         (res: ICategoryType[]) => {
+        //             const tmpArr: MyDataNode[] = [];
+        //             res.forEach(value => {
+        //                 const tmp = new MyDataNode();
+        //                 tmp.id = value.id;
+        //                 tmp.name = value.nameCategoryType;
+        //                 tmp.children = [];
+        //                 if (value.categoryTypeIDS.length > 0) {
+        //                     value.categoryTypeIDS.forEach(value1 => {
+        //                         tmp.children.push
+        //                         ({
+        //                             id: value1.id,
+        //                             name: value1.nameCategory,
+        //                             title: value1.title,
+        //                             description: value1.description,
+        //                             table: value1.nameTableData,
+        //                             children: []
+        //                         });
+        //                     });
+        //                 }
+        //                 tmpArr.push(tmp);
+        //             });
+        //             this.dataSource.data = tmpArr;
+        //         },
+        //         // (res: HttpErrorResponse) => this.onError(res.message)
+        //         (res: HttpErrorResponse) => console.log('Something went wrong!')
+        //     );
     }
 
     ngOnInit() {
-
         // let cateType = this.categoryTypeService
         //     .query()
         //     .pipe(
@@ -194,7 +195,7 @@ export class NavigationComponent implements OnInit {
         //     console.log(this.categories);
         // });
 
-        // this.loadAll();
+        this.loadAll();
 
         this.languageHelper.getAll().then(languages => {
             this.languages = languages;
@@ -204,10 +205,22 @@ export class NavigationComponent implements OnInit {
             this.inProduction = profileInfo.inProduction;
             this.swaggerEnabled = profileInfo.swaggerEnabled;
         });
+
+        this.registerChangeInCategories();
+        this.registerChangeInCategoryTypes();
     }
 
     changeNode(id) {
         this.data.changeNode(id);
+    }
+
+    ngOnDestroy() {
+        console.log('Destroy Nav');
+        this.eventManager.destroy(this.eventSubscriber);
+    }
+
+    registerChangeInCategories() {
+        this.eventSubscriber = this.eventManager.subscribe('categoryListModification', response => this.loadAll());
     }
 
     registerChangeInCategoryTypes() {
@@ -246,7 +259,7 @@ export class NavigationComponent implements OnInit {
     logout() {
         this.collapseNavbar();
         this.loginService.logout();
-        this.router.navigate(['/view/SQL_Intro/1']);
+        this.router.navigate(['/dashboard']);
     }
 
     toggleNavbar() {
@@ -256,5 +269,4 @@ export class NavigationComponent implements OnInit {
     getImageUrl() {
         return this.isAuthenticated() ? this.accountService.getImageUrl() : null;
     }
-
 }

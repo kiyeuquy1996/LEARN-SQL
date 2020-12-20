@@ -1,0 +1,14 @@
+Folder:			C:\Users\Minato\Desktop\SQL\learnsql\src\main\docker
+
+Create Images: 		docker build -t learnsql .
+Remove Images: 		docker rmi "nameImages"
+
+Create Container: 	docker-compose -f .\app.yml up
+Remove Container: 	docker-compose -f .\app.yml down
+
+Remove each Container: 	docker rm "ID"
+List Container: 	docker ps -a
+List Images: 		docker images -a
+
+Config ngrok:		.\ngrok.exe authtoken 1OwysJBlqdf2ECfv9IhtL4RrWhk_78RRMy9HNZK8auN97zUAT
+Run Server:		.\ngrok.exe http 80

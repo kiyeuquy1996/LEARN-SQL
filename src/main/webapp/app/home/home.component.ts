@@ -1,27 +1,31 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
-import {JhiAlertService, JhiEventManager} from 'ng-jhipster';
-import {LoginModalService, AccountService, Account} from 'app/core';
-import {DataService} from 'app/layouts/data.service';
-import {ContentService} from 'app/entities/content';
-import {IContent} from 'app/shared/model/content.model';
-import {filter, map} from 'rxjs/operators';
-import {ICategory} from 'app/shared/model/category.model';
-import {CategoryService} from 'app/entities/category';
-import {CustomerService} from 'app/entities/customer';
-import {ICustomer} from 'app/shared/model/customer.model';
-import {IEmployees} from 'app/shared/model/employees.model';
-import {EmployeesService} from 'app/entities/employees';
-import {IOrders} from 'app/shared/model/orders.model';
-import {OrdersService} from 'app/entities/orders';
-import {IShipper} from 'app/shared/model/shipper.model';
-import {ShipperService} from 'app/entities/shipper';
-import {ActivatedRoute, Router} from '@angular/router';
-import {ITryIt, TryIt} from 'app/shared/model/tryit.model';
-import {SERVER_API_URL} from 'app/app.constants';
-import {HttpClient, HttpErrorResponse, HttpResponse} from '@angular/common/http';
-import {ICategoryType} from 'app/shared/model/category-type.model';
-import {CategoryTypeService} from 'app/entities/category-type';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
+import { LoginModalService, AccountService, Account } from 'app/core';
+import { DataService } from 'app/layouts/data.service';
+import { ContentService } from 'app/entities/content';
+import { IContent } from 'app/shared/model/content.model';
+import { filter, map } from 'rxjs/operators';
+import { ICategory } from 'app/shared/model/category.model';
+import { CategoryService } from 'app/entities/category';
+import { CustomerService } from 'app/entities/customer';
+import { ICustomer } from 'app/shared/model/customer.model';
+import { IEmployees } from 'app/shared/model/employees.model';
+import { EmployeesService } from 'app/entities/employees';
+import { IOrders } from 'app/shared/model/orders.model';
+import { OrdersService } from 'app/entities/orders';
+import { IShipper } from 'app/shared/model/shipper.model';
+import { ShipperService } from 'app/entities/shipper';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ITryIt, TryIt } from 'app/shared/model/tryit.model';
+import { SERVER_API_URL } from 'app/app.constants';
+import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { ICategoryType } from 'app/shared/model/category-type.model';
+import { CategoryTypeService } from 'app/entities/category-type';
+import { IExercises } from 'app/shared/model/exercises.model';
+import { IExercisesAnswer } from 'app/shared/model/exercises-answer.model';
+import { ExercisesService } from 'app/entities/exercises';
+import { ExercisesAnswerService } from 'app/entities/exercises-answer';
 
 @Component({
     selector: 'jhi-home',
@@ -29,7 +33,6 @@ import {CategoryTypeService} from 'app/entities/category-type';
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['home.scss']
 })
-
 export class HomeComponent implements OnInit {
     account: Account;
     modalRef: NgbModalRef;
@@ -47,6 +50,8 @@ export class HomeComponent implements OnInit {
     tableDataContent: string;
 
     contents: IContent[];
+    exercises: IExercises[];
+    exercisesAnswers: IExercisesAnswer[];
     categories: ICategory[];
     categoryTypes: ICategoryType[];
     lengcategories: number;
@@ -63,6 +68,8 @@ export class HomeComponent implements OnInit {
     public resourceUrl = SERVER_API_URL + 'api/try-it';
 
     constructor(
+        protected exercisesService: ExercisesService,
+        protected exercisesAnswerService: ExercisesAnswerService,
         protected categoryTypeService: CategoryTypeService,
         private modalService: NgbModal,
         protected http: HttpClient,
@@ -160,7 +167,7 @@ export class HomeComponent implements OnInit {
             'UPDATE',
             'VALUES',
             'VIEW',
-            'WHERE',
+            'WHERE'
         ];
         this.loadAll();
         this.loadServiceDataTable();
@@ -208,6 +215,30 @@ export class HomeComponent implements OnInit {
                 },
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
+        this.exercisesService
+            .query()
+            .pipe(
+                filter((res: HttpResponse<IExercises[]>) => res.ok),
+                map((res: HttpResponse<IExercises[]>) => res.body)
+            )
+            .subscribe(
+                (res: IExercises[]) => {
+                    this.exercises = res;
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
+        this.exercisesAnswerService
+            .query()
+            .pipe(
+                filter((res: HttpResponse<IExercisesAnswer[]>) => res.ok),
+                map((res: HttpResponse<IExercisesAnswer[]>) => res.body)
+            )
+            .subscribe(
+                (res: IExercisesAnswer[]) => {
+                    this.exercisesAnswers = res;
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
     }
 
     loadTree() {
@@ -230,7 +261,14 @@ export class HomeComponent implements OnInit {
             for (let i = 0; i < this.publicDeals.length; i++) {
                 if (+splitted[3] === this.publicDeals[i].id) {
                     const x = ++i;
-                    const name = '/view/' + this.publicDeals[x].nameCategory.toString().replace(this.globalreplace, '_').replace(this.globalreplace2, '') + '/' + this.publicDeals[x].id;
+                    const name =
+                        '/view/' +
+                        this.publicDeals[x].nameCategory
+                            .toString()
+                            .replace(this.globalreplace, '_')
+                            .replace(this.globalreplace2, '') +
+                        '/' +
+                        this.publicDeals[x].id;
                     this.data.currentId.subscribe(id => {
                         this.idContent = this.publicDeals[x].id;
                         this.router.navigate([name]);
@@ -252,7 +290,14 @@ export class HomeComponent implements OnInit {
             for (let i = 0; i < this.publicDeals.length; i++) {
                 if (+splitted[3] === this.publicDeals[i].id) {
                     const x = --i;
-                    const name = '/view/' + this.publicDeals[x].nameCategory.toString().replace(this.globalreplace, '_').replace(this.globalreplace2, '') + '/' + this.publicDeals[x].id;
+                    const name =
+                        '/view/' +
+                        this.publicDeals[x].nameCategory
+                            .toString()
+                            .replace(this.globalreplace, '_')
+                            .replace(this.globalreplace2, '') +
+                        '/' +
+                        this.publicDeals[x].id;
                     this.data.currentId.subscribe(id => {
                         this.idContent = this.publicDeals[x].id;
                         this.router.navigate([name]);
@@ -265,7 +310,7 @@ export class HomeComponent implements OnInit {
     }
 
     openXl(content, query) {
-        this.modalService.open(content, {size: 'lg'});
+        this.modalService.open(content, { size: 'lg' });
         this.getQuerySQL(query);
     }
 
@@ -327,7 +372,7 @@ export class HomeComponent implements OnInit {
         this.data.currentId.subscribe(id => {
             if (id === null) {
                 this.idContent = 1;
-                this.router.navigate(['/view/SQL_Intro/1']);
+                this.router.navigate(['/dashboard']);
             } else {
                 this.idContent = id;
             }
@@ -342,7 +387,7 @@ export class HomeComponent implements OnInit {
             this.account = account;
         });
 
-        this.activatedRoute.data.subscribe(({category}) => {
+        this.activatedRoute.data.subscribe(({ category }) => {
             this.category = category;
         });
 
@@ -355,7 +400,7 @@ export class HomeComponent implements OnInit {
         this.tryIt = new TryIt(query);
 
         this.http
-            .post(this.resourceUrl, this.tryIt, {observe: 'response'})
+            .post(this.resourceUrl, this.tryIt, { observe: 'response' })
             .pipe(
                 filter((res: HttpResponse<any[]>) => res.ok),
                 map((res: HttpResponse<any[]>) => res.body)

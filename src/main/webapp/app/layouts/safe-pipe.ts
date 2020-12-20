@@ -1,20 +1,18 @@
-import {Pipe, PipeTransform} from '@angular/core';
-import {DomSanitizer} from '@angular/platform-browser';
-import {ICategory} from "app/shared/model/category.model";
+import { Pipe, PipeTransform } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
+import { ICategory } from 'app/shared/model/category.model';
 
-@Pipe({name: 'safe'})
+@Pipe({ name: 'safe' })
 export class SafePipe implements PipeTransform {
-    constructor(private sanitizer: DomSanitizer) {
-    }
+    constructor(private sanitizer: DomSanitizer) {}
 
     transform(url) {
         return this.sanitizer.bypassSecurityTrustResourceUrl(url);
     }
 }
 
-@Pipe({name: 'highlight'})
+@Pipe({ name: 'highlight' })
 export class Highlight implements PipeTransform {
-
     // transform(value: any, args: any): any {
     //     if (!args) {
     //         return value;
@@ -37,16 +35,16 @@ export class Highlight implements PipeTransform {
         return value;
     }
 
-//     const startIndex = value.indexOf(args[i]);
-//     if (startIndex !== -1) {
-//     const matchingString = value.substr(startIndex, args[i].length);
-//     return value.replace(matchingString, '<span class="text-primary">' + matchingString + '</span>');
-// }
+    //     const startIndex = value.indexOf(args[i]);
+    //     if (startIndex !== -1) {
+    //     const matchingString = value.substr(startIndex, args[i].length);
+    //     return value.replace(matchingString, '<span class="text-primary">' + matchingString + '</span>');
+    // }
 }
 
-@Pipe({name: 'keys'})
+@Pipe({ name: 'keys' })
 export class KeysPipe implements PipeTransform {
-    transform(value, args: string[]): any {
+    transform(value, args: string[] = []): any {
         let keys = [];
         for (let key in value) {
             keys.push(key);
@@ -58,9 +56,9 @@ export class KeysPipe implements PipeTransform {
     }
 }
 
-@Pipe({name: 'keys2'})
+@Pipe({ name: 'keys2' })
 export class KeysPipe2 implements PipeTransform {
-    transform(value, args: string[]): any {
+    transform(value, args: string[] = []): any {
         let keys = [];
         for (let key in value) {
             keys.push(key);
@@ -72,9 +70,9 @@ export class KeysPipe2 implements PipeTransform {
     }
 }
 
-@Pipe({name: 'keys3'})
+@Pipe({ name: 'keys3' })
 export class KeysPipe3 implements PipeTransform {
-    transform(value, args: string[]): any {
+    transform(value, args: string[] = []): any {
         let keys = [];
         for (let key in value) {
             keys.push(key);
@@ -86,7 +84,7 @@ export class KeysPipe3 implements PipeTransform {
     }
 }
 
-@Pipe({name: 'substring'})
+@Pipe({ name: 'substring' })
 export class SubString implements PipeTransform {
     transform(value: string): any {
         let str = '';
@@ -99,20 +97,16 @@ export class SubString implements PipeTransform {
             }
 
             for (let i = 0; i < splitted.length; i++) {
-                str = str + splitted[i].replace(
-                    splitted[i],
-                    '<li>' + ' ' + splitted[i] + '.</li>');
+                str = str + splitted[i].replace(splitted[i], '<li>' + ' ' + splitted[i] + '.</li>');
             }
-
         }
         return str;
     }
 }
 
-@Pipe({name: 'filter'})
+@Pipe({ name: 'filter' })
 export class FilterPipe implements PipeTransform {
     transform(items: ICategory[], searchText: string): any[] {
-
         if (!items) {
             return [];
         }
