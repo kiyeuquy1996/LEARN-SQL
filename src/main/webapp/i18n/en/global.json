@@ -1,8 +1,7 @@
 {
     "global": {
         "title": "LearnSQL",
-        "browsehappy":
-            "You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/?locale=en\">upgrade your browser</a> to improve your experience.",
+        "browsehappy": "You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/?locale=en\">upgrade your browser</a> to improve your experience.",
         "menu": {
             "home": "Home",
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
@@ -66,8 +65,7 @@
                 "authenticated": {
                     "prefix": "If you want to ",
                     "link": "sign in",
-                    "suffix":
-                        ", you can try the default accounts:<br/>- Administrator (login=\"admin\" and password=\"admin\") <br/>- User (login=\"user\" and password=\"user\")."
+                    "suffix": ", you can try the default accounts:<br/>- Administrator (login=\"admin\" and password=\"admin\") <br/>- User (login=\"user\" and password=\"user\")."
                 },
                 "register": {
                     "noaccount": "You don't have an account yet?",
@@ -110,8 +108,8 @@
             "el": "Easy Learning",
             "tiy": "Try It Yourself",
             "free": "It is Free",
-            "address": "Nghiem Xuan Yem - Dai Kim Ward - Hoang Mai District - Hanoi City",
-            "col1": "Thang Long University",
+            "address": "1st Dai Co Viet Street - Hai Ba Trung District - Hanoi City",
+            "col1": "Hanoi University of Science and Technology",
             "ndcol1": "Learn SQL Online Web Tutorials is optimized for learning, testing, and training. Examples might be simplified to improve reading and basic understanding. Tutorials, references, and examples are constantly reviewed to avoid errors, but we cannot warrant full correctness of all content."
         },
         "item-count": "Showing {{first}} - {{second}} of {{total}} items."

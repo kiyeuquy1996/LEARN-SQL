@@ -1,14 +1,14 @@
 {
     "generator-jhipster": {
         "promptValues": {
-            "packageName": "com.thanglongedu.learnsql",
+            "packageName": "com.hustedu.learnsql",
             "nativeLanguage": "en"
         },
         "jhipsterVersion": "5.8.2",
         "applicationType": "monolith",
         "baseName": "LearnSQL",
-        "packageName": "com.thanglongedu.learnsql",
-        "packageFolder": "com/thanglongedu/learnsql",
+        "packageName": "com.hustedu.learnsql",
+        "packageFolder": "com/hustedu/learnsql",
         "serverPort": "8080",
         "authenticationType": "jwt",
         "cacheProvider": "ehcache",

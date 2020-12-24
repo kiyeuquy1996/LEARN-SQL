@@ -17,7 +17,7 @@ logging:
     level:
         ROOT: DEBUG
         io.github.jhipster: DEBUG
-        com.thanglongedu.learnsql: DEBUG
+        com.hustedu.learnsql: DEBUG
 
 spring:
     profiles:
